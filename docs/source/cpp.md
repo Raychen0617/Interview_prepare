@@ -505,5 +505,5 @@ int main()
 ```
 
 ## References
-[interview_huihut](https://interview.huihut.com/#/?id=volatile)
+[interview_huihut](https://interview.huihut.com/#/?id=volatile) <br>
 [C++八股文](https://www.nowcoder.com/discuss/353158831435882496)

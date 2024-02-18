@@ -132,7 +132,6 @@ When mapping a texture to an object, we need to determine which texel (texture p
 - GL_LINEAR: Linear filtering
 
 ![Untitled](./images/opengl_images/Untitled4.png)
-
 ### Mipmaps
 
 Create many textures of decreasing size and use one of these sub textures when appropriate. Imagine we had a large room with thousands of objects, each with an attached texture. There will be objects far away that have the same high-resolution texture attached as the objects close to the viewer. Since the objects are far away and probably only produce a few fragments, OpenGL has difficulties retrieving the right color value for its fragment from the high-resolution texture, since it has to pick a texture color for a fragment that spans a large part of the texture. There are some options in OpenGL when approximate a mipmap for a specific resolution.
@@ -289,6 +288,31 @@ For each pixel, trace the eye ray (primary ray) to the first visible surface and
 1. Shadow rays: in directions L to light source
 2. Reflected ray
 3. Refracted (transmitted ray)
+
+### Deffered Shading and Forward Shading
+Deferred shading is based on the idea that we defer or postpone most of the heavy rendering (like lighting) to a later stage. 
+Deferred shading consists of two passes: in the first pass, called the **geometry pass**, we render the scene once and retrieve all kinds of geometrical information from the objects that we store in a collection of textures called the G-buffer.
+
+G-buffer
+- A 3D world-space position vector to calculate the (interpolated) fragment position variable used for lightDir and viewDir.
+- An RGB diffuse color vector = albedo.
+- A 3D normal vector for determining a surface's slope.
+- A specular intensity float.
+- All light source position and color vectors.
+- The player or viewer's position vector.
+
+Then use the textures from the G-buffer in a second pass called the **lighting pass** where we render a screen-filled quad and calculate the scene's lighting for each fragment using the geometrical information stored in the G-buffer; pixel by pixel we iterate over the G-buffer. 
+Instead of taking each object all the way from the vertex shader to the fragment shader, we decouple its advanced fragment processes to a later stage. The lighting calculations are exactly the same, but this time we take all required input variables from the corresponding G-buffer textures, instead of the vertex shader (plus some uniform variables).
+
+![Untitled](./images/opengl_images/deferred_overview.png)
+
+Advantage
+- We only calculate lighting once for each fragment (depth test already concluded this fragment to be the last and top-most fragment)
+
+Disadvantage
+- high memory usage
+-  doesn't support blending (as we only have information of the top-most fragment)
+- MSAA not working anymore
 
 ### Gamma correction
 
@@ -693,7 +717,7 @@ GLenum glCheckError_(const char *file, int line)
 glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 ```
 
-## Shader Debug
+### Shader Debug
 
 One frequently used trick to figure out what is wrong with a shader is to evaluate all the relevant variables in a shader program by sending them directly to the fragment shader's output channel.
 
