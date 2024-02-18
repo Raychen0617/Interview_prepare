@@ -23,7 +23,7 @@ glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 ### VAO
 
-1. VAO encapsulates information about the format of vertex data and the associated **Buffer Objects** (VBOs)
+1. VAO encapsulates information about the format of vertex data and the associated Buffer Objects (VBOs)
 2. VAO makes switching between different vertex data and attribute configurations as easy as binding a different VAO. All the state we just set is stored inside the VAO.
 
 ```glsl
@@ -128,8 +128,8 @@ Texture Wrapping refers to how textures are handled when their coordinates exte
 
 When mapping a texture to an object, we need to determine which texel (texture pixel) corresponds to each fragment (pixel) on the object’s surface. OpenGL offers some options:
 
-- **GL_NEAREST**: Nearest-neighbor sampling
-- **GL_LINEAR**: Linear filtering
+- GL_NEAREST: Nearest-neighbor sampling
+- GL_LINEAR: Linear filtering
 
 ![Untitled](./opengl_images/Untitled4.png)
 
@@ -143,7 +143,7 @@ Create many textures of decreasing size and use one of these sub textures when a
 - GL_LINEAR_MIPMAP_LINEAR: linearly interpolates between the two closest mipmaps and samples the interpolated level via linear interpolation.
 
 ```glsl
-// **Texture Wrapping**
+// Texture Wrapping
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 // Texture Filtering
@@ -257,21 +257,21 @@ FragColor = vec4(result, 1.0);
 
 ![Untitled](./opengl_images/Untitled8.png)
 
-### **Gouraud shading**
+### Gouraud shading
 
 Interpolates colors across polygons based on vertex colors (applying Phong lighting at the vertices). It is less computationally expensive.
 
-### **Phong shading**
+### Phong shading
 
 Interpolates normal vectors across the surface of the polygon from the vertex normals and then applies Phong lighting. It results in smoother shading but is more computationally expensive.
 
-### **Blinn-Phong Shading**:
+### Blinn-Phong Shading:
 
 An extension of the Phong lighting model that uses a halfway vector instead of a reflection vector to calculate specular reflections, overcoming some of the limitations of Phong shading.
 
 - replace v, r with n and h
 - **[Halfway Vector**: A unit vector that is exactly halfway between the light direction and the view direction1](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C0%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22Instead%20of...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A6%2C%22highlightText%22%3A%22Instead%20of%20relying%20on%20a%20reflection%20vector%20we're%20using%20a%20so%20called%20halfway%20vector%20that%20is%20a%20unit%20vector%20exactly%20halfway%20between%20the%20view%20direction%20and%20the%20light%20direction.%22%2C%22snippets%22%3A%5B%5D%7D%7D)[2](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C1%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22%5C%22Instead%20o...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A37%2C%22highlightText%22%3A%22%5C%22Instead%20of%20relying%20on%20a%20reflection%20vector%20we're%20using%20a%20so%20called%20halfway%20vector%20that%20is%20a%20unit%20vector%20exactly%20halfway%20between%20the%20surface%20normal%20and%20the%20light's%20direction%20vector.%20%5C%22%20-%3E%20I%20think%20you%20meant%20exactly%20between%20the%20light%20vector%20and%20the%20view%20vector.%22%2C%22snippets%22%3A%5B%5D%7D%7D). [The closer this vector aligns with the surface normal, the higher the specular contribution3](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C2%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22The%20closer...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A6%2C%22highlightText%22%3A%22The%20closer%20this%20halfway%20vector%20aligns%20with%20the%20surface's%20normal%20vector%2C%20the%20higher%20the%20specular%20contribution.%22%2C%22snippets%22%3A%5B%5D%7D%7D).
-- **Comparison with Phong Shading**: Blinn-Phong shading produces more realistic results, especially with low shininess values, and avoids the specular cutoff issue of Phong shading. [However, it requires a higher shininess exponent to achieve similar effects as Phong shading4](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C3%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22As%20a%20resul...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A15%2C%22highlightText%22%3A%22As%20a%20result%2C%20to%20get%20visuals%20similar%20to%20Phong%20shading%20the%20specular%20shininess%20exponent%20has%20to%20be%20set%20a%20bit%20higher.%22%2C%22snippets%22%3A%5B%5D%7D%7D).
+- Comparison with Phong Shading: Blinn-Phong shading produces more realistic results, especially with low shininess values, and avoids the specular cutoff issue of Phong shading. [However, it requires a higher shininess exponent to achieve similar effects as Phong shading4](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C3%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22As%20a%20resul...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A15%2C%22highlightText%22%3A%22As%20a%20result%2C%20to%20get%20visuals%20similar%20to%20Phong%20shading%20the%20specular%20shininess%20exponent%20has%20to%20be%20set%20a%20bit%20higher.%22%2C%22snippets%22%3A%5B%5D%7D%7D).
 - Improve efficiency (in phong model, it requires the calculation of a new reflection vector and view vector for each vertex)
 
 ### Forward Ray Tracing
@@ -299,7 +299,7 @@ Human perception of brightness (lightness) follows an approximate power function
 ### HDR
 
 - **[HDR Rendering**: A technique that allows for a higher range of color values than the default [0.0, 1.0] range, preserving more details in dark and bright areas of a scene1](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C0%7C08d3e121-4e99-4152-a9bb-1717d62d8864%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22We%20allow%20f...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FHDR%22%2C%22lineIndex%22%3A7%2C%22highlightText%22%3A%22We%20allow%20for%20a%20much%20larger%20range%20of%20color%20values%20to%20render%20to%2C%20collecting%20a%20large%20range%20of%20dark%20and%20bright%20details%20of%20a%20scene%2C%20and%20at%20the%20end%20we%20transform%20all%20the%20HDR%20values%20back%20to%20the%20low%20dynamic%20range%20(LDR)%20of%20%5B%200.0%2C%201.0%20%5D.%22%2C%22snippets%22%3A%5B%5D%7D%7D).
-- **Floating Point Framebuffers**: Framebuffers that can store floating point values outside the default range, preventing color values from getting clamped after each fragment shader run.
+- Floating Point Framebuffers: Framebuffers that can store floating point values outside the default range, preventing color values from getting clamped after each fragment shader run.
 
 When the internal format of a framebuffer's color buffer is specified as GL_RGB16F, GL_RGBA16F, GL_RGB32F, or GL_RGBA32F the framebuffer is known as a floating-point framebuffer that can store floating point values outside the default range of 0~1. This is perfect for rendering in high dynamic range!
 
@@ -311,7 +311,7 @@ When the internal format of a framebuffer's color buffer is specified as GL_RGB
 2. The depth is stored within each fragment (as the fragment's x value) and whenever the fragment wants to output its color, OpenGL compares its depth values with the Z-buffer.
 3. Depth testing is automatically enabled.
 4. Some options that allow customize
-5. Z-**fighting**: A common visual artifact may occur when two planes or triangles are so closely aligned to each other that the depth buffer does not have enough precision to figure out which one of the two shapes is in front of the other.
+5. **Z-fighting**: A common visual artifact may occur when two planes or triangles are so closely aligned to each other that the depth buffer does not have enough precision to figure out which one of the two shapes is in front of the other.
     1. **Prevent z-fighting: Creating a small offset between two objects you can completely remove z-fighting between the two objects.**
     2. Set the near plane as far as possible since precision is extremely large when close to the near plane.
     3. *higher precision depth buffer*
@@ -687,7 +687,7 @@ GLenum glCheckError_(const char *file, int line)
 }
 ```
 
-### **Debug output in GLFW**
+### Debug output in GLFW
 
 ```c
 glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
