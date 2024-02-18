@@ -248,8 +248,7 @@ volatile bool stop = false;
 
 ### Define vs Constant vs Inline function
 
-Define (Marco)
-
+**Define (Marco)**
 - Define is actually processed at the pre-compilation stage, without type or type checking.
 - Simply does string expansion when encountering the specific words
 - it is easy to produce boundary effects and fail to achieve the expected results
@@ -267,18 +266,18 @@ Define (Marco)
         return 0;
     }
     ```
-Constant
-
+**Constant**
 - const is processed at compile time, with type and type checking
 - runtime system allocates memory for const constants
 - retaining only one copy of data, saving unnecessary memory space
 
-Inline function: a function that is **expanded in line** when it is called.
-
+**Inline function**
+- An inline function is one for which the compiler copies the code from the function definition directly into the code of the calling function rather than creating a separate set of instructions in memory.
+- Using the inline specifier is only a suggestion to the compiler that an inline expansion can be performed; the compiler is free to ignore the suggestion.
 - Normally, when a function is called, the CPU performs several steps, including storing the memory address of the instruction following the function call, copying arguments onto the stack, and transferring control to the specified function.
 - For small, commonly used functions, the overhead of making the function call can be more significant than the actual execution time of the function.
-- Inline functions eliminate this overhead by directly inserting the function code where it’s called.
-- 相當於define，卻比 define 多了類型檢查，真正具有函數特性;
+- Inline functions eliminate this overhead.
+- Similar to define，but with type checking, truly possessing function. characteristics."
 
 ### Intrinsic
 
