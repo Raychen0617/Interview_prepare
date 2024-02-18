@@ -55,3 +55,6 @@ int clearBit(int num, int i) {
 		return num & mask;
 }
 ```
+
+## Resources
+[Standford bit minipulation](https://www.notion.so/chentzj/Nvidia-Interview-Prepare-70951ba8d8c645de949d614f861be84c?pvs=4#1565d10885e945ceb4f9d322b6041c57)
