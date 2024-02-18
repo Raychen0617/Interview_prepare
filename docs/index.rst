@@ -15,5 +15,5 @@ Welcome to chentzj's interview preparation!
 
 Contents
 -----------
-* :doc:`Test </source/test>`
+* :doc:`Test <test>`
 * :doc:`C/C++ </source/cpp>`
