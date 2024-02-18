@@ -1,6 +1,6 @@
 # C/C++
 
-# Basics
+## Basics
 
 ### C vs C++
 
@@ -106,7 +106,7 @@ Inline function: a function that is **expanded in line** when it is called.
 - Instead, the intrinsic function is implemented by the compiler in lieu of a function call. In the example of `strncpy()`, the byte-copying code is emitted directly at the place where `strncpy()` is invoked.
 - As compared to inline functions, the intrinsic function is provided by the compiler. There isn't a place in the source code of a C program where the intrinsic function is written, nor is there a library implementation that must be linked to. An inline function is different in that the compiler reads the source code for the inline function, but is similar in that later it may emit a compiled translation of the inline function directly into the object code, omitting the overhead of a function call.
 
-## new/delete vs malloc/free
+### new/delete vs malloc/free
 
 **How is it different from memory allocated to normal variables?**
 
@@ -169,7 +169,7 @@ int main()
 }
 ```
 
-# OOP
+## OOP
 
 The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
 
