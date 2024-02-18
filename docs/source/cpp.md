@@ -503,3 +503,7 @@ int main()
 	return 0;
 }
 ```
+
+## References
+[interview_huihut](https://interview.huihut.com/#/?id=volatile)
+[C++八股文](https://www.nowcoder.com/discuss/353158831435882496)
