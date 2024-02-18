@@ -1,10 +1,10 @@
-# opengl
+# OPENGL
 
-# Basics
+## Basics
 
 ![Untitled](./opengl_images/Untitled.png)
 
-## Primitives
+### Primitives
 
 ![Untitled](./opengl_images/Untitled1.png)
 
@@ -93,7 +93,7 @@ glUniform4f(uniformlocation , 0.0f, value, 0.0f, 1.0f);
 uniform float ourColor
 ```
 
-## Transformation
+### Transformation
 
 ```glsl
 // Translation
@@ -108,9 +108,9 @@ trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0)); // (t
 trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
 ```
 
-# Texture
+## Texture
 
-### **Texture Wrapping**
+### Texture Wrapping
 
 Texture Wrapping refers to how textures are handled when their coordinates extend beyond the standard range of (0,0) to (1,1). Below are some options:
 
@@ -124,12 +124,12 @@ Texture Wrapping refers to how textures are handled when their coordinates exte
 
 ![Untitled](./opengl_images/Untitled3.png)
 
-### **Texture Filtering**
+### Texture Filtering
 
 When mapping a texture to an object, we need to determine which texel (texture pixel) corresponds to each fragment (pixel) on the object’s surface. OpenGL offers some options:
 
-- **GL_NEAREST**: Nearest-neighbor sampling.
-- **GL_LINEAR**: Linear filtering.
+- **GL_NEAREST**: Nearest-neighbor sampling
+- **GL_LINEAR**: Linear filtering
 
 ![Untitled](./opengl_images/Untitled4.png)
 
@@ -217,7 +217,7 @@ Calculate reflection with a normal map or a height map (bump mapping)
 
 ![Untitled](./opengl_images/Untitled6.png)
 
-# Lighting
+## Lighting
 
 ### Phong Lighting Model
 
@@ -303,7 +303,7 @@ Human perception of brightness (lightness) follows an approximate power function
 
 When the internal format of a framebuffer's color buffer is specified as GL_RGB16F, GL_RGBA16F, GL_RGB32F, or GL_RGBA32F the framebuffer is known as a floating-point framebuffer that can store floating point values outside the default range of 0~1. This is perfect for rendering in high dynamic range!
 
-# Advanced
+## Advanced
 
 ### Z-buffer & Depth Testing & Z-fighting
 
@@ -377,7 +377,7 @@ glEnable(GL_STENCIL_TEST);
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 ```
 
-## Face culling
+### Face culling
 
 Use winding order to check if the object is facing front face or back face. 
 
@@ -622,11 +622,9 @@ glBindBuffer(GL_ARRAY_BUFFER, 0);
 glVertexAttribDivisor(2, 1);
 ```
 
-## Anti Aliasing
+### Anti Aliasing
 
-### **Multisampling**
-
-one sample each fragment to multi samples each fragment.
+Multisampling: one sample each fragment to multi samples each fragment.
 
 ![Untitled](./opengl_images/Untitled13.png)
 
