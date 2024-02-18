@@ -17,7 +17,5 @@ Contents
 --------
 
 .. toctree::
-
-   usage
-   opengl
-   cpp
+   * :doc:`OpenGL </source/opengl>`
+   * :doc:`C/C++ </source/cpp>`
