@@ -19,3 +19,9 @@ Contents
 .. toctree::
    * :doc:`OpenGL </source/opengl>`
    * :doc:`C/C++ </source/cpp>`
+
+
+Optimization API
+-----------
+* :doc:`Test <./test>`
+* :doc:`C/C++ </source/cpp>`
