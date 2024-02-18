@@ -7,7 +7,7 @@ Hexadecimal numbers uses 16 values to represent a number. (4個一數) Numbers f
 Example: 
 0101 = 5
 1010 = A
-1010 1010 1010 1010 1010 1010 1010 1010 = 0xAAAAAAAA
+1010 1010 1010 1010 1010 1010 1010 1010 = 0x
 ### Signed Representation
 Allows both negative and positive numbers. The first bit represents the sign (0 for non-negative, 1 for negative), and the remaining bits represent the magnitude of the number. Two's complement is commonly used.
 

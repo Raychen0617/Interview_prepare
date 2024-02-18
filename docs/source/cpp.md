@@ -13,7 +13,7 @@
 
 ### C/C++ Memory
 
-**Stack**:
+**Stack**
 
 - The stack is managed by the compiler
 - It automatically allocates and deallocates memory for local variables and function parameters.
@@ -21,20 +21,192 @@
 - The stack provides continuous memory space.
 - It has limited space.
 
-**Heap**:
+**Heap**
 
 - Heap is managed by the programmer.
 - Memory allocation and deallocation are manual (using **`new`**, **`malloc`**, **`delete`**, or **`free`**).
 - It provides non-contiguous memory space.
 - It offers more flexibility but requires responsible memory management.
 
-Global/static storage area
+**Global/static storage area**
 
 - divided into two adjacent areas, initialized and uninitialized, to store initialized and uninitialized global variables and static variables.
 
-Constant storage area
+**Constant storage area**
 
 - stores constants, generally not allowed to modify.
+
+### Pointer vs Reference
+**Pointers**
+- Definition: A pointer is a variable that holds the memory address of another variable
+- A pointer needs to be dereferenced with the * operator to access the memory location it points to. 
+- A pointer can be re-assigned.
+- A pointer has its own memory address and size on the stack.
+- A pointer can have multiple level of indirection.
+
+**References**
+- Definition: A reference variable is an alias, that is, another name for an already existing variable.
+- A reference, like a pointer, is also implemented by storing the address of an object. 
+- A reference cannot be re-assigned, and must be assigned at initialization. (need to initialize in a single line)
+- A reference shares the same memory address with the original variable and takes up no space on the stack.
+- A reference can only offer one level of indirection. 
+```cpp
+int i = 3
+// A pointer to variable i or "stores the address of i"
+int *ptr = &i; 
+// A reference (or alias) for i.
+int &ref = i; 
+```
+### Static
+1. Static Variables in functions
+    - When a variable is declared as static, space for it gets allocated for the lifetime of the program.
+    - Even if the function is called multiple times, space for the static variable is allocated only once and the value of the variable in the previous call gets carried through the next function call.
+```cpp
+void demo()
+{
+	static int count = 0;
+	cout << count << " ";
+	count++;
+}
+
+int main()
+{
+	for (int i = 0; i < 5; i++)
+		demo();
+	return 0;
+}
+
+// The output is 0, 1, 2, 3, 4
+```
+2. Static variables in a class
+    - The static variables in a class are shared by the objects.
+    - There can not be multiple copies of the same static variables for different objects.
+    - Thus static variables can not be initialized using constructors
+```cpp
+// C++ program to demonstrate static
+// variables inside a class
+
+#include <iostream>
+using namespace std;
+
+class GfG {
+public:
+	static int i;
+	GfG(){};
+};
+int GfG::i = 1;
+int main()
+{
+	GfG obj1;
+	GfG obj2;
+	obj1.i = 2;
+	obj2.i = 3;
+	cout << obj1.i << " " << obj2.i;
+}
+// Output is 1
+```
+3. Class objects as static: Like variables, objects also when declared as static have a scope till the lifetime of the program.
+```cpp
+#include <iostream>
+using namespace std;
+ 
+class GfG {
+    int i = 0;
+ 
+public:
+    GfG()
+    {
+        i = 0;
+        cout << "Inside Constructor\n";
+    }
+ 
+    ~GfG() { cout << "Inside Destructor\n"; }
+};
+ 
+int main()
+{
+    int x = 0;
+    if (x == 0) {
+        static GfG obj;
+    }
+    cout << "End of main\n";
+}
+/* the destructor is invoke after end of main
+Inside Constructor
+End of main
+Inside Destructor
+*/
+```
+4. Static functions in a class
+Static member functions also do not depend on the object of the class.
+Static member functions are allowed to access only the static data members or other static member functions, they can not access the non-static data members or member functions of the class.
+```cpp
+class GfG {
+public:
+    // static member function
+    static void printMsg() { cout << "Welcome to GfG!"; }
+};
+```
+
+### Constant
+
+### Smart Pointer (C++)
+Some Issues with normal pointers are as follows:
+
+- *Memory Leaks*: This occurs when memory is repeatedly allocated by a program but never freed. This leads to excessive memory consumption and eventually leads to a system crash. 
+- *Dangling Pointers*: A dangling pointer is a pointer that points to a memory location that has been deleted.
+- *Wild Pointers*: Wild pointers are pointers that are declared and allocated memory but the pointer is never initialized to point to any valid object or address.
+- *Data Inconsistency*: Data inconsistency occurs when some data is stored in memory but is not updated in a consistent manner.
+- *Buffer Overflow*: When a pointer is used to write data to a memory address that is outside of the allocated memory block. This leads to the corruption of data which can be exploited by malicious attackers.
+
+```cpp
+class Rectangle {
+private:
+	int length;
+	int breadth;
+};
+
+void fun(){Rectangle* p = new Rectangle();}
+
+int main()
+{
+	while (1) fun();
+}
+// The program wil cause memory leak
+```
+Smart Pointer is a wrapper class over a pointer with an operator like * and -> overloaded. The objects of the smart pointer class look like normal pointers. But, unlike Normal Pointers, it can deallocate and free destroyed object memory.
+
+```cpp
+class SmartPtr {
+    int* ptr; // Actual pointer
+public:
+    // Constructor: Refer
+    // https://www.geeksforgeeks.org/g-fact-93/ for use of explicit keyword
+    explicit SmartPtr(int* p = NULL) { ptr = p; }
+
+    // Destructor
+    ~SmartPtr() { delete (ptr); }
+
+    // Overloading dereferencing operator
+    int& operator*() { return *ptr; }
+    // Overloading arrow operator so that
+    // members of T can be accessed
+    // like a pointer (useful if T represents
+    // a class or struct or union type)
+    // T* operator->() { return ptr; }
+};
+
+int main()
+{
+    SmartPtr ptr(new int());
+    *ptr = 20;
+    cout << *ptr;
+    // We don't need to call delete ptr: when the object
+    // ptr goes out of scope, the destructor for it is
+    // automatically called and destructor does delete ptr.
+    return 0;
+}
+```
 
 ### Struct vs Class
 
@@ -148,7 +320,7 @@ memmove overlap : LearningLearningLe
 */
 ```
 
-### **Variable Length Argument in C**
+### Variable Length Argument in C
 
 Variable length argument is a feature that allows a function to receive any number of arguments. There are situations where we want a function to handle variable number of arguments according to requirement. 1) Sum of given numbers. 2) Minimum of given numbers.
 
@@ -228,6 +400,23 @@ Thread:Thread is the segment of a process which means a process can have multipl
 
 The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
 
+### Explicit
+The explicit function specifier controls unwanted implicit type conversions.
+It can only be used in declarations of constructors within a class declaration
+For example, except for the default constructor, the constructors in the following class are conversion constructors.
+```cpp
+class A
+{  public:
+   A();
+   A(int);
+   A(const char*, int = 0);
+};
+// A c = A(1) by default converter in constructor
+// If specify explicit, then the following is illegal
+A c = 1; 
+A d = "Venditti";
+```
+
 ### Encapsulate
 
 Encapsulation is the process of wrapping up objective things into abstract classes, and allowing the class to expose its data and methods only to trusted classes or objects, while hiding information from untrusted ones.
@@ -262,7 +451,7 @@ public:
 };
 ```
 
-### **Polymorphism**
+### Polymorphism
 
 Polymorphism is that in which we can perform a task in multiple forms or ways. It is applied to the functions or methods. 
 
@@ -336,9 +525,7 @@ int main()
 
 ### Overload
 
-Above is method overload.
-
-Below is operator overload.
+Above is method overload and below is operator overload.
 
 ```c
 public:
@@ -356,7 +543,7 @@ public:
 };
 ```
 
-### Derive
+### Derive & Override
 
 When you call a function with the same name in the derived class, it **overrides** the base class function (instead of the virtual function).
 
@@ -409,7 +596,7 @@ public:
 };
 ```
 
-### **What is the difference between function overloading and templates?**
+### What is the difference between function overloading and templates?
 
 Both function overloading and templates are examples of polymorphism features of OOP. Function overloading is used when multiple functions do quite similar (not identical) operations, templates are used when multiple functions do identical operations.
 
