@@ -2,13 +2,13 @@
 
 # Basics
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled.png)
+![Untitled](./opengl_images/Untitled.png)
 
 ## Primitives
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%201.png)
+![Untitled](./opengl_images/Untitled1.png)
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%202.png)
+![Untitled](./opengl_images/Untitled2.png)
 
 ### VBO
 
@@ -122,7 +122,7 @@ Texture Wrapping refers to how textures are handled when their coordinates exte
 - GL_CLAMP_TO_EDGE: Clamps the coordinates between 0 and 1. The result is that higher coordinates become clamped to the edge, resulting in a stretched edge pattern.
 - GL_CLAMP_TO_BORDER: Coordinates outside the range are now given a user-specified border color.
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%203.png)
+![Untitled](./opengl_images/Untitled3.png)
 
 ### **Texture Filtering**
 
@@ -131,7 +131,7 @@ When mapping a texture to an object, we need to determine which texel (texture p
 - **GL_NEAREST**: Nearest-neighbor sampling.
 - **GL_LINEAR**: Linear filtering.
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%204.png)
+![Untitled](./opengl_images/Untitled4.png)
 
 ### Mipmaps
 
@@ -186,7 +186,7 @@ GLuint textureLocation = glGetUniformLocation(shaderProgram, "textureSampler");
 glUniform1i(textureLocation, 0); // 0 is the texture unit index
 ```
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%205.png)
+![Untitled](./opengl_images/Untitled5.png)
 
 ```glsl
 // Texture coordinates can store in VBO with VAO as well. 
@@ -215,7 +215,7 @@ To represent surface details and avoid heavy geomertric computation.
 
 Calculate reflection with a normal map or a height map (bump mapping)
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%206.png)
+![Untitled](./opengl_images/Untitled6.png)
 
 # Lighting
 
@@ -253,9 +253,9 @@ vec3 result = (ambient + diffuse + specular) * objectColor;
 FragColor = vec4(result, 1.0);
 ```
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%207.png)
+![Untitled](./opengl_images/Untitled7.png)
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%208.png)
+![Untitled](./opengl_images/Untitled8.png)
 
 ### **Gouraud shading**
 
@@ -294,7 +294,7 @@ For each pixel, trace the eye ray (primary ray) to the first visible surface and
 
 Human perception of brightness (lightness) follows an approximate power function, with greater sensitivity to relative differences between darker tones than between lighter tones.
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%209.png)
+![Untitled](./opengl_images/Untitled9.png)
 
 ### HDR
 
@@ -335,7 +335,7 @@ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 One important thing to remember is that the values in the depth buffer are not linear in clip-space (they are linear in view-space before the projection matrix is applied). A value of 0.5 in the depth buffer does not mean the pixel's z-value is halfway in the frustum; the z-value of the vertex is actually quite close to the near plane! (Better separate front elements)
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%2010.png)
+![Untitled](./opengl_images/Untitled10.png)
 
 ### Stencil Buffer
 
@@ -442,9 +442,9 @@ GL_MAX: takes the component-wise maximum of both colors: C¯result=max(Dst,Src)
 */
 ```
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%2011.png)
+![Untitled](./opengl_images/Untitled11.png)
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%2012.png)
+![Untitled](./opengl_images/Untitled12.png)
 
 ### Frame buffer
 
@@ -628,11 +628,11 @@ glVertexAttribDivisor(2, 1);
 
 one sample each fragment to multi samples each fragment.
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%2013.png)
+![Untitled](./opengl_images/Untitled13.png)
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%2014.png)
+![Untitled](./opengl_images/Untitled14.png)
 
-![Untitled](OpenGL%2076d83dc0d8504783aca784aadda67b58/Untitled%2015.png)
+![Untitled](./opengl_images/Untitled15.png)
 
 1. Use without frame buffer
 
