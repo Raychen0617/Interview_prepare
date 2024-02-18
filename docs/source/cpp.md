@@ -536,8 +536,8 @@ int main()
 ```
 
 ### Overload
-
-Above is method overload and below is operator overload.
+Specify more than one definition for a function name or an operator in the same scope, you have overloaded that function name or operator.
+Above is method (function) overload and below is operator overload.
 
 ```c
 public:
@@ -558,6 +558,7 @@ public:
 ### Derive & Override
 
 When you call a function with the same name in the derived class, it **overrides** the base class function (instead of the virtual function).
+Derivation allows you to derive a class, called a derived class, from another class, called a base class.
 
 ```c
 #include <iostream>
