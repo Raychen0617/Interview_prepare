@@ -58,9 +58,10 @@ int *ptr = &i;
 int &ref = i; 
 ```
 ### Static
-1. Static Variables in functions
+1. Static Variables in functions (local static)
     - When a variable is declared as static, space for it gets allocated for the lifetime of the program.
     - Even if the function is called multiple times, space for the static variable is allocated only once and the value of the variable in the previous call gets carried through the next function call.
+    - The scope is still in the function
 ```cpp
 void demo()
 {
@@ -78,10 +79,11 @@ int main()
 
 // The output is 0, 1, 2, 3, 4
 ```
-2. Static variables in a class
+2. Static variables in a class (local static)
     - The static variables in a class are shared by the objects.
     - There can not be multiple copies of the same static variables for different objects.
     - Thus static variables can not be initialized using constructors
+    - Can access without using an object of class
 ```cpp
 // C++ program to demonstrate static
 // variables inside a class
@@ -105,7 +107,11 @@ int main()
 }
 // Output is 1
 ```
-3. Class objects as static: Like variables, objects also when declared as static have a scope till the lifetime of the program.
+3. Static global variable (global static)
+- For a global variable, it can be accessed both in this file and in other source files in the same project (add extern for declaration). 
+- Modify global variables changes their scope from visible throughout the entire project to visible only within this file.
+4. Class objects as static
+- Like variables, objects also when declared as static have a scope till the lifetime of the program.
 ```cpp
 #include <iostream>
 using namespace std;
@@ -137,15 +143,21 @@ End of main
 Inside Destructor
 */
 ```
-4. Static functions in a class
-Static member functions also do not depend on the object of the class.
-Static member functions are allowed to access only the static data members or other static member functions, they can not access the non-static data members or member functions of the class.
+5. Static functions in a class
+- Static member functions also do not depend on the object of the class.
+- Static member functions are allowed to access only the static data members or other static member functions, they can not access the non-static data members or member functions of the class.
+- Can access without using an object of class
 ```cpp
 class GfG {
 public:
     // static member function
     static void printMsg() { cout << "Welcome to GfG!"; }
 };
+int main{
+    // static data members and functions belong to the class and
+    // can be accessed without using an object of class X
+    GFG::printMsg();
+}
 ```
 
 ### Constant
