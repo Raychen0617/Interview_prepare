@@ -28,7 +28,7 @@ Full rotation and translation: [3D geometric transformation - HackMD](https://ha
 
 ## **Projection transformation (P) + Normalization:**
 
-![Untitled](./opengl_images/mvp/Untitled.png)
+![Untitled](./images/opengl_images/mvp/Untitled.png)
 
 Projection transformation: 按下快門
 
@@ -37,12 +37,12 @@ Normalization: 將物體縮放至可以project to projection plane
 - Orthogonal
     - Normalization
         
-        ![Untitled](./opengl_images/mvp/Untitled1.png)
+        ![Untitled](./images/opengl_images/mvp/Untitled1.png)
         
 - Perspective
     - Projection: only need to transform w to w’, since the last dimension value should be 1.
         
-        ![Untitled](./opengl_images/mvp/Untitled2.png)
+        ![Untitled](./images/opengl_images/mvp/Untitled2.png)
         
     - Normalization (same as orthogonal normalization)
 
