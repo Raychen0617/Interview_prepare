@@ -161,7 +161,14 @@ int main{
 ```
 
 ### Constant
-
+The constants in C are the read-only variables whose values cannot be modified once they are declared in the C program.
+```cpp
+// Syntax to Define Constant
+// These will not work
+// const int var;
+// var = 5;
+const data_type var_name = value;
+```
 ### Smart Pointer (C++)
 Some Issues with normal pointers are as follows:
 
@@ -234,13 +241,12 @@ Extern is used before the declaration of a variable or a function, to indicate t
 
 ### Volatile
 
-- Variability: This is reflected at the assembly level, that is, the next statement will not directly use the register content of the volatile variable corresponding to the previous statement but will read it again from memory.
+- Volatile is used to designate a data object as being mapped to memory that can be accessed by independent input/output processes and independent, asynchronously interrupting processes.
 - Non-optimizability: volatile tells the compiler not to perform various aggressive optimizations on this variable, or even eliminate the variable directly, ensuring that the instructions written by the programmer in the code will be executed.
 - Sequentiality: It can ensure the sequentiality between volatile variables, and the compiler will not perform out-of-order optimization.
-- volatile 關鍵字是一種類型修飾符，用它聲明的類型變數表示可以被某些編譯器未知的因素（操作系統、硬體、其它線程等）更改。 所以使用 volatile 告訴編譯器不應對這樣的對象進行優化。
 - volatile 關鍵字聲明的變數，每次訪問時都必須從記憶體中取出值（沒有被 volatile 修飾的變數，可能由於編譯器的優化，從 CPU 寄存器中取值）
 - const 可以是 volatile （如只讀的狀態寄存器）
-- 指標可以是 volatile
+- pointer can be volatile
 
 ```c
 volatile bool stop = false;
@@ -411,7 +417,18 @@ Thread:Thread is the segment of a process which means a process can have multipl
 
 The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
 
-### Explicit
+### Constructor
+Constructors are used to create, and can initialize, objects of their class type.
+You cannot declare a constructor as virtual or static, const, volatile.
+You do not specify a return type for a constructor.
+
+When a derived class object is created using constructors, it is created in the following order:
+1. Virtual base classes are initialized, in the order they appear in the base list.
+2. Nonvirtual base classes are initialized, in declaration order.
+3. Class members are initialized in declaration order (regardless of their order in the initialization list).
+4. The body of the constructor is executed.
+
+#### Explicit
 The explicit function specifier controls unwanted implicit type conversions.
 It can only be used in declarations of constructors within a class declaration
 For example, except for the default constructor, the constructors in the following class are conversion constructors.
@@ -426,6 +443,52 @@ class A
 // If specify explicit, then the following is illegal
 A c = 1; 
 A d = "Venditti";
+```
+### Destructor
+A destructor is a member function with the same name as its class prefixed by a ~ (tilde).
+Destructors cannot be declared const, volatile, const volatile or static.
+**Destructor can be declared virtual or pure virtual.**
+
+The destructors of base classes and members are called in the reverse order of the completion of their constructor:
+1. The destructor for a class object is called before destructors for members and bases are called.
+2. Destructors for nonstatic members are called before destructors for base classes are called.
+3. Destructors for nonvirtual base classes are called before destructors for virtual base classes are called.
+
+#### Virtual Destructor
+Deleting a derived class object using a pointer of base class type that has a non-virtual destructor results in undefined behavior. 
+To correct this situation, the base class should be defined with a virtual destructor. 
+```cpp
+class base {
+  public:
+    base()     
+    { cout << "Constructing base\n"; }
+    virtual ~base()
+    { cout << "Destructing base\n"; }     
+};
+ 
+class derived : public base {
+  public:
+    derived()     
+    { cout << "Constructing derived\n"; }
+    ~derived()
+    { cout << "Destructing derived\n"; }
+};
+
+int main()
+{
+    derived *d = new derived(); 
+    base *b = d;
+    delete b;
+    getchar();
+    return 0;
+}
+/*
+Output:
+Constructing base
+Constructing derived
+Destructing derived
+Destructing base //!!!! if no virtual, then this will not output
+*/
 ```
 
 ### Encapsulate
