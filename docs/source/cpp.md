@@ -108,10 +108,10 @@ int main()
 // Output is 1
 ```
 3. Static global variable (global static)
-- For a global variable, it can be accessed both in this file and in other source files in the same project (add extern for declaration). 
-- Modify global variables changes their scope from visible throughout the entire project to visible only within this file.
+    - For a global variable, it can be accessed both in this file and in other source files in the same project (add extern for declaration). 
+    - Modify global variables changes their scope from visible throughout the entire project to visible only within this file.
 4. Class objects as static
-- Like variables, objects also when declared as static have a scope till the lifetime of the program.
+    - Like variables, objects also when declared as static have a scope till the lifetime of the program.
 ```cpp
 #include <iostream>
 using namespace std;
@@ -144,9 +144,9 @@ Inside Destructor
 */
 ```
 5. Static functions in a class
-- Static member functions also do not depend on the object of the class.
-- Static member functions are allowed to access only the static data members or other static member functions, they can not access the non-static data members or member functions of the class.
-- Can access without using an object of class
+    - Static member functions also do not depend on the object of the class.
+    - Static member functions are allowed to access only the static data members or other static member functions, they can not access the non-static data members or member functions of the class.
+    - Can access without using an object of class
 ```cpp
 class GfG {
 public:
