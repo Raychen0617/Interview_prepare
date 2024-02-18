@@ -83,8 +83,6 @@ Define (Marco)
         return 0;
     }
     ```
-    
-
 Constant
 
 - const is processed at compile time, with type and type checking
@@ -115,6 +113,40 @@ For normal variables like “int a”, “char str[10]”, etc, memory is automa
 **“new”** does call the constructor of a class whereas **“malloc()”** does not.
 
 “free” frees memory but doesn’t call **[Destructor of a class](https://www.geeksforgeeks.org/destructors-c/)** whereas **“delete”** frees the memory and also calls the Destructor of the class.
+
+### memcpy vs memmove
+memmove() and memcpy() are used to copy a block of memory from a location to another
+- memcpy() simply copies data one by one from one location to another. 
+- memcpy() leads to problems when strings overlap
+- memmove() copies the data first to an intermediate buffer, then from the buffer to destination.
+
+```cpp
+// Sample program to show that memmove() is better than 
+// memcpy() when addresses overlap. 
+char str[100] = "Learningisfun"; 
+char *first, *second; 
+first = str; 
+second = str; 
+printf("Original string :%s\n ", str); 
+
+// When overlap happens then it just ignore it
+// Since the input addresses are overlapping, memcpy program overwrites the original string and causes data loss. 
+/* Copies contents of str2 to str1 */
+// memmove(str1, str2, sizeof(str2));  
+memcpy(first + 8, first, 10); 
+printf("memcpy overlap : %s\n ", str); 
+
+// When overlap it start from first position 
+// With memmove function whenever overlap happens the first pointer will start to print from the beginning
+memmove(second + 8, first, 10); 
+printf("memmove overlap : %s\n ", str);
+
+/* OUTPUT
+Original string :Learningisfun
+memcpy overlap : LearningLearningis
+memmove overlap : LearningLearningLe
+*/
+```
 
 ### **Variable Length Argument in C**
 
@@ -168,6 +200,29 @@ int main()
 	return 0;
 }
 ```
+
+### Process vs Thread
+Process: Processes are the programs that are dispatched from the ready state and are scheduled in the CPU for execution. PCB(Process Control Block) holds the concept of process. A process can create other processes which are known as Child Processes. The process takes more time to terminate and it is isolated means it does not share the memory with any other process. 
+
+Thread:Thread is the segment of a process which means a process can have multiple threads and these multiple threads are contained within a process. A thread has three states: Running, Ready, and Blocked. The thread takes less time to terminate as compared to the process but unlike the process, threads do not isolate (share data section = global variable, OS resources). Each thread has its own thread control block. 
+
+| S.NO | Process                                                                   | Thread                                                                             |
+|------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| 1.   | Process means any program is in execution.                              | Thread means a segment of a process.                                               |
+| 2.   | The process takes more time to terminate.                                | The thread takes less time to terminate.                                            |
+| 3.   | It takes more time for creation.                                         | It takes less time for creation.                                                   |
+| 4.   | It also takes more time for context switching.                           | It takes less time for context switching.                                           |
+| 5.   | The process is less efficient in terms of communication.                 | Thread is more efficient in terms of communication.                                 |
+| 6.   | Multiprogramming holds the concepts of multi-process.                   | We don’t need multi programs in action for multiple threads because a single process consists of multiple threads. |
+| 7.   | The process is isolated.                                                 | Threads share memory.                                                               |
+| 8.   | The process is called the heavyweight process.                           | A Thread is lightweight as each thread in a process shares code, data, and resources.|
+| 9.   | Process switching uses an interface in an operating system.             | Thread switching does not require calling an operating system and causes an interrupt to the kernel. |
+| 10.  | If one process is blocked then it will not affect the execution of other processes | If a user-level thread is blocked, then all other user-level threads are blocked. |
+| 11.  | The process has its own Process Control Block, Stack, and Address Space. | Thread has Parents’ PCB, its own Thread Control Block, and Stack and common Address space. |
+| 12.  | Changes to the parent process do not affect child processes.             | Since all threads of the same process share address space and other resources so any changes to the main thread may affect the behavior of the other threads of the process. |
+| 13.  | A system call is involved in it.                                         | No system call is involved, it is created using APIs.                              |
+| 14.  | The process does not share data with each other.                         | Threads share data with each other.                                                |
+
 
 ## OOP
 

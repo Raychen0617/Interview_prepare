@@ -1,10 +1,39 @@
 # Bit manipulation
 
-```c
-x ^ 0s = x    x & 0s = 0    x | 0s = x
-x ^ 1s = ~x   x & 1s = x    x | 1s = 1s
-x ^ x  = 0    x & x = x     x | x  = x
+## Basics
+### Hexadecimal Conversion (十六進位)
+Hexadecimal numbers uses 16 values to represent a number. (4個一數) Numbers from 0-9 are expressed by digits 0-9 and 10-15 are represented by characters from A – F.
 
+Example: 
+0101 = 5
+1010 = A
+1010 1010 1010 1010 1010 1010 1010 1010 = 0xAAAAAAAA
+### Signed Representation
+Allows both negative and positive numbers. The first bit represents the sign (0 for non-negative, 1 for negative), and the remaining bits represent the magnitude of the number. Two's complement is commonly used.
+
+### Unsigned Representation
+Only allows non-negative numbers. The entire bit range represents the magnitude of the number.
+
+### Range
+Signed: $-2^{(n-1)} \text{ to } 2^{(n-1)} - 1 = 10000000 \text{ to } 0111111111$
+Unsigned: $0 \text{ to } 2^n - 1$
+
+### Overflow 
+If a number exceeds the upper bound of its representation, it overflows. In signed representation, the next number after the maximum positive value is the minimum negative value, while in unsigned representation, it wraps around to 0.
+
+## Operations
+| Operators | Operations | Result |
+|-----------|------------|--------|
+| XOR       | X ^ 0s     | X      |
+| XOR       | X ^ 1s     | ~X     |
+| XOR       | X ^ X      | 0      |
+| AND       | X & 0s     | 0      |
+| AND       | X & 1s     | X      |
+| AND       | X & X      | X      |
+| OR        | X \| 0s    | X      |
+| OR        | X \| 1s    | 1s     |
+| OR        | X \| X     | X      |
+```c
 // XNOR = ~(a ^ b)
 
 // 最后一位取反(101101->101100)                                
@@ -56,5 +85,16 @@ int clearBit(int num, int i) {
 }
 ```
 
+## Quiz
+There is an unsigned integer n, and we want to swap the value in position 0 with 1, position 2 with 3, and so on and so forth. 
+
+Answer: 
+```cpp
+a = (n>>1) & 0x55555555
+b = (n<<1) & 0xAAAAAAAA
+res = a & b
+```
+
 ## Resources
-[Standford bit minipulation](https://www.notion.so/chentzj/Nvidia-Interview-Prepare-70951ba8d8c645de949d614f861be84c?pvs=4#1565d10885e945ceb4f9d322b6041c57)
+[Standford bit minipulation](https://www.notion.so/chentzj/Nvidia-Interview-Prepare-70951ba8d8c645de949d614f861be84c?pvs=4#1565d10885e945ceb4f9d322b6041c57)<br>
+[Geeksforgeeks](https://www.geeksforgeeks.org/all-about-bit-manipulation/)
