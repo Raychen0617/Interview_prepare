@@ -247,7 +247,6 @@ Extern is used before the declaration of a variable or a function, to indicate t
 - volatile 關鍵字聲明的變數，每次訪問時都必須從記憶體中取出值（沒有被 volatile 修飾的變數，可能由於編譯器的優化，從 CPU 寄存器中取值）
 - const 可以是 volatile （如只讀的狀態寄存器）
 - pointer can be volatile
-
 ```c
 volatile bool stop = false;
 ```
@@ -301,7 +300,21 @@ For normal variables like “int a”, “char str[10]”, etc, memory is automa
 
 **“new”** does call the constructor of a class whereas **“malloc()”** does not.
 
-“free” frees memory but doesn’t call **[Destructor of a class](https://www.geeksforgeeks.org/destructors-c/)** whereas **“delete”** frees the memory and also calls the Destructor of the class.
+**“free”** frees memory but doesn’t call **[Destructor of a class](https://www.geeksforgeeks.org/destructors-c/)** whereas **“delete”** frees the memory and also calls the Destructor of the class.
+
+#### malloc
+Reserves a block of storage of size bytes.
+Returns a pointer to the first byte of allocated memory.
+```cpp
+pointer_name = (cast-type*) malloc(size);
+int* ptr = (int*) malloc(sizeof(int));
+```
+
+#### aligned_aloc
+The aligned_alloc function allocates space for an object whose alignment is specified by alignment, whose size is specified by size, and whose value is indeterminate.
+```cpp
+void *aligned_alloc( size_t alignment, size_t size );
+```
 
 ### memcpy vs memmove
 memmove() and memcpy() are used to copy a block of memory from a location to another

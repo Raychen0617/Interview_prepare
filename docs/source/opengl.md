@@ -124,6 +124,46 @@ Texture Wrapping refers to how textures are handled when their coordinates exte
 
 ![Untitled](./images/opengl_images/Untitled3.png)
 
+### glDrawArray VS glDrawElement
+**glDrawArray**
+1. It does not use indices; instead, it sequentially processes the vertices in the order they appear in the buffer.
+2. Inefficient for complex geometry with shared vertices
+```cpp
+void glDrawArrays(	
+    GLenum mode,
+    GLint first,
+    GLsizei count);
+
+// mode: Specifies what kind of primitives to render. 
+// first: Specifies the starting index in the enabled arrays.
+// count: Specifies the number of indices to be rendered.
+```
+**glDrawElement**
+1. The glDrawElements function takes its indices from the EBO currently bound to the `GL_ELEMENT_ARRAY_BUFFER` target. 
+2. More efficient to draw complex geometry with shared vertices.
+3. With glDrawElements, shared vertices are referenced by indices, minimizing redundant data transmission.
+```cpp
+void glDrawElements(	
+    GLenum mode,
+    GLsizei count,
+    GLenum type,
+    const void * indices);
+
+// type: Specifies the type of the values in indices. Must be one of GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT, or GL_UNSIGNED_INT.
+// indices: Specifies a pointer to the location where the indices are stored.
+
+// Usage: To draw a rectangle with shared vertex (total 6 vertex)
+unsigned int indices[] = {  // note that we start from 0!
+    0, 1, 3,   // first triangle
+    1, 2, 3    // second triangle
+};  
+unsigned int EBO;
+glGenBuffers(1, &EBO);
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
+glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+```
+
 ### Texture Filtering
 
 When mapping a texture to an object, we need to determine which texel (texture pixel) corresponds to each fragment (pixel) on the object’s surface. OpenGL offers some options:
