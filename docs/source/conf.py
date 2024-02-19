@@ -18,7 +18,10 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'myst_parser',
+    'sphinx_rtd_size',
 ]
+
+sphinx_rtd_size_width = "90%"
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
