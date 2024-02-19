@@ -21,7 +21,7 @@ extensions = [
     'sphinx_rtd_size',
 ]
 
-sphinx_rtd_size_width = "90%"
+sphinx_rtd_size_width = "100%"
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
