@@ -107,6 +107,43 @@ glm::mat4 trans = glm::mat4(1.0f);
 trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0)); // (target, angle, axis) 
 trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
 ```
+### Tesellation Shader
+To divide primitives into smaller primitives to make geometry has a higher resolution without having to send data from cpu to gpu. 
+
+Three stage:
+1. Tessellation Control Shader: Determine how much tessellation to do.
+2. Tessellation Primitive Generator: Generates the primitives needed for the division.
+3. Tessellation Evaluation Shader: Decides where those new verticies should be placed.
+
+main.cpp
+```cpp
+// Draw with GL_PATCHES
+// A patch is an abstract primitive that is comprised of a set of n vertices that will be interpolated between.
+glPatchParameteri(GL_PATCH_VERTICES, 4);
+glDrawArrays(GL_PATCHES, 0, 4*rez*rez);
+```
+
+### Geometry Shader
+Geometry shader take a single Primitive as input and may output zero or more primitives.
+Run after vertex and tessellation shaders but before fragment shader.
+In view-space coordinates.
+```glsl
+layout (points) in;
+layout (line_strip, max_vertices = 2) out;
+
+// This geometry shader emits two vertex and form a line
+void main() {    
+    gl_Position = gl_in[0].gl_Position + vec4(-0.1, 0.0, 0.0, 0.0); 
+    // The vector currently set to gl_Position is added to the output primitive
+    EmitVertex();
+
+    gl_Position = gl_in[0].gl_Position + vec4( 0.1, 0.0, 0.0, 0.0);
+    EmitVertex();
+    
+    // Generate primitives
+    EndPrimitive();
+}  
+```
 
 ## Texture
 
@@ -352,7 +389,7 @@ Advantage
 Disadvantage
 - high memory usage
 -  doesn't support blending (as we only have information of the top-most fragment)
-- MSAA cost much more to work [details](https://stackoverflow.com/questions/34981878/deferred-shading-anti-aliasing)
+- MSAA can be computationally expensive. During the geometry pass, MSAA samples the visibility of primitives at multiple subpixel positions. Therefore, performing lighting calculations with multisampled data in the subsequent lighting pass can also incur significant costs.[details](https://stackoverflow.com/questions/34981878/deferred-shading-anti-aliasing)
 
 ### Gamma correction
 
