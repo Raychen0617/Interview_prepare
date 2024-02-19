@@ -145,22 +145,6 @@ void main() {
 }  
 ```
 
-## Texture
-
-### Texture Wrapping
-
-Texture Wrapping refers to how textures are handled when their coordinates extend beyond the standard range of (0,0) to (1,1). Below are some options:
-
-- GL_REPEAT: The default behavior for textures. Repeats the texture image.
-- GL_MIRRORED_REPEAT: Same as  but mirrors the image with each repeat.
-    
-    GL_REPEAT
-    
-- GL_CLAMP_TO_EDGE: Clamps the coordinates between 0 and 1. The result is that higher coordinates become clamped to the edge, resulting in a stretched edge pattern.
-- GL_CLAMP_TO_BORDER: Coordinates outside the range are now given a user-specified border color.
-
-![Untitled](./images/opengl_images/Untitled3.png)
-
 ### glDrawArray VS glDrawElement
 **glDrawArray**
 1. It does not use indices; instead, it sequentially processes the vertices in the order they appear in the buffer.
@@ -200,6 +184,26 @@ glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
 glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 ```
+
+### Rendering Pipeline
+![](./images/opengl_images/rendering_pipeline.png){ width=100%}
+
+## Texture
+
+### Texture Wrapping
+
+Texture Wrapping refers to how textures are handled when their coordinates extend beyond the standard range of (0,0) to (1,1). Below are some options:
+
+- GL_REPEAT: The default behavior for textures. Repeats the texture image.
+- GL_MIRRORED_REPEAT: Same as  but mirrors the image with each repeat.
+    
+    GL_REPEAT
+    
+- GL_CLAMP_TO_EDGE: Clamps the coordinates between 0 and 1. The result is that higher coordinates become clamped to the edge, resulting in a stretched edge pattern.
+- GL_CLAMP_TO_BORDER: Coordinates outside the range are now given a user-specified border color.
+
+![Untitled](./images/opengl_images/Untitled3.png)
+
 
 ### Texture Filtering
 
