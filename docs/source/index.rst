@@ -17,5 +17,5 @@ Contents
 -----------
 * :doc:`Background <background>`
 * :doc:`C/C++ <cpp>`
-* :doc:`Bit Manipulation <bit>`
+* :doc:`LeetCode <leetcode>`
 * :doc:`OpenGL <opengl>`

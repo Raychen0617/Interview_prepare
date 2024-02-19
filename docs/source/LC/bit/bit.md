@@ -8,20 +8,19 @@ Example:
 0101 = 5
 1010 = A
 1010 1010 1010 1010 1010 1010 1010 1010 = 0x
-### Signed Representation
-Allows both negative and positive numbers. The first bit represents the sign (0 for non-negative, 1 for negative), and the remaining bits represent the magnitude of the number. Two's complement is commonly used.
+### Signed & Unsigned Representation
+Signed: Allows both negative and positive numbers. The first bit represents the sign (0 for non-negative, 1 for negative), and the remaining bits represent the magnitude of the number. Two's complement is commonly used.
 
-### Unsigned Representation
-Only allows non-negative numbers. The entire bit range represents the magnitude of the number.
+Unsigned: Only allows non-negative numbers. The entire bit range represents the magnitude of the number.
 
-### Range
+#### Range
 Signed: $-2^{(n-1)} \text{ to } 2^{(n-1)} - 1 = 10000000 \text{ to } 0111111111$
 Unsigned: $0 \text{ to } 2^n - 1$
 
 ### Overflow 
 If a number exceeds the upper bound of its representation, it overflows. In signed representation, the next number after the maximum positive value is the minimum negative value, while in unsigned representation, it wraps around to 0.
 
-## Operations
+### Operations
 | Operators | Operations | Result |
 |-----------|------------|--------|
 | XOR       | X ^ 0s     | X      |
@@ -33,6 +32,8 @@ If a number exceeds the upper bound of its representation, it overflows. In sign
 | OR        | X \| 0s    | X      |
 | OR        | X \| 1s    | 1s     |
 | OR        | X \| X     | X      |
+
+### Magic Operations
 ```c
 // XNOR = ~(a ^ b)
 
@@ -57,11 +58,9 @@ x | (x-1)
 // 去掉右起第一个1的左边(100101000->1000,树状数组)
 x & (x ^ (x-1))
 ```
+![Untitled](./images/Untitled.png)
 
-![Untitled](./images/bit/Untitled.png)
-
-![Untitled](./images/bit/Untitled1.png)
-
+### Basic bit operation functions
 ```c
 // Get bit
 boolean getBit(int i, int num){
@@ -85,15 +84,16 @@ int clearBit(int num, int i) {
 }
 ```
 
-## Quiz
+## Practice & Leetcode
 There is an unsigned integer n, and we want to swap the value in position 0 with 1, position 2 with 3, and so on and so forth. 
 
-Answer: 
 ```cpp
 a = (n>>1) & 0x55555555
 b = (n<<1) & 0xAAAAAAAA
 res = a & b
 ```
+[Hamming Distance](https://leetcode.com/problems/bitwise-and-of-numbers-range/description/)<br>
+[Total Hamming Distance](https://leetcode.com/problems/total-hamming-distance/description/)
 
 ## Resources
 [Standford bit minipulation](https://www.notion.so/chentzj/Nvidia-Interview-Prepare-70951ba8d8c645de949d614f861be84c?pvs=4#1565d10885e945ceb4f9d322b6041c57)<br>
