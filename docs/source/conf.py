@@ -36,6 +36,7 @@ html_theme_options = {
 
     # Set the name of the project to appear in the navigation.
     'nav_title': 'Interview Prepare',
+    'body_max_width': '100%',
 
     # Set you GA account ID to enable tracking
     #'google_analytics_account': 'UA-136029994-1',
