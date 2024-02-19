@@ -16,6 +16,6 @@ Welcome to chentzj's interview preparation!
 Contents
 -----------
 * :doc:`Background <background>`
+* :doc:`Practical <leetcode>`
 * :doc:`C/C++ <cpp>`
-* :doc:`LeetCode <leetcode>`
 * :doc:`OpenGL <opengl>`
