@@ -352,7 +352,7 @@ Advantage
 Disadvantage
 - high memory usage
 -  doesn't support blending (as we only have information of the top-most fragment)
-- MSAA not working anymore
+- MSAA cost much more to work [details](https://stackoverflow.com/questions/34981878/deferred-shading-anti-aliasing)
 
 ### Gamma correction
 
@@ -688,27 +688,23 @@ glVertexAttribDivisor(2, 1);
 
 ### Anti Aliasing
 
-Multisampling: one sample each fragment to multi samples each fragment.
-
-![Untitled](./images/opengl_images/Untitled13.png)
-
-![Untitled](./images/opengl_images/Untitled14.png)
+**MSAA**: One sample each fragment to multiple samples each fragment.
 
 ![Untitled](./images/opengl_images/Untitled15.png)
 
 1. Use without frame buffer
-
 ```c
 glfwWindowHint(GLFW_SAMPLES, number_of_sampels);
 // create a rendering window, but this time with a buffer containing 4 subsamples per screen coordinate
 glEnable(GL_MULTISAMPLE);
 ```
 
-1. Use our own frame buffer
+2. Use our own frame buffer
 
 ```c
 // To create a texture that supports storage of multiple sample points
 // we use glTexImage2DMultisample
+// The texture will then store in the frame buffer
 glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, tex);
 glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, width, height, GL_TRUE);
 glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
