@@ -23,6 +23,9 @@
 ##### CPA
 Based on the importance score of each token, we then costruct a newly selected query matrix by selecting the top query vectors.
 
+##### Class Token and Positional Encoding
+[Intro to Class token and positional embedding](https://deepganteam.medium.com/vision-transformers-for-computer-vision-9f70418fe41a)
+[Why use class token?](https://datascience.stackexchange.com/questions/90649/class-token-in-vit-and-bert)
 ![](./images/resume/cpa.png)
 
 
