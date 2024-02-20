@@ -110,10 +110,12 @@ trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
 ### Tesellation Shader
 To divide primitives into smaller primitives to make geometry has a higher resolution without having to send data from cpu to gpu. 
 
-Three stage:
-1. Tessellation Control Shader: Determine how much tessellation to do.
-2. Tessellation Primitive Generator: Generates the primitives needed for the division.
-3. Tessellation Evaluation Shader: Decides where those new verticies should be placed.
+![](https://i.imgur.com/2DUWKJ1.jpg)
+
+Three stage in tesellation:
+1. Tessellation Control Shader (Hull Shader): Determine how much tessellation to do.
+2. Tessellation Primitive Generator(Tessellator): Generates the primitives needed for the division. This step is done by hardware.
+3. Tessellation Evaluation Shader(Domain Shader): Decides where those new verticies should be placed.
 
 main.cpp
 ```cpp
@@ -122,6 +124,113 @@ main.cpp
 glPatchParameteri(GL_PATCH_VERTICES, 4);
 glDrawArrays(GL_PATCHES, 0, 4*rez*rez);
 ```
+
+Tessellation Control Shader
+The tessellation control shader output the tessellation levels, or number of times to subdivide each edge.
+```cpp
+// tessellation control shader
+#version 410 core
+
+// specify number of control points per patch output
+// this value controls the size of the input and output arrays
+layout (vertices=4) out;
+
+// varying input from vertex shader
+in vec2 TexCoord[];
+// varying output to evaluation shader
+out vec2 TextureCoord[];
+
+void main()
+{
+    // ----------------------------------------------------------------------
+    // pass attributes through
+    gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position;
+    TextureCoord[gl_InvocationID] = TexCoord[gl_InvocationID];
+
+    // ----------------------------------------------------------------------
+    // invocation zero controls tessellation levels for the entire patch
+    if (gl_InvocationID == 0)
+    {
+        gl_TessLevelOuter[0] = 16;
+        gl_TessLevelOuter[1] = 16;
+        gl_TessLevelOuter[2] = 16;
+        gl_TessLevelOuter[3] = 16;
+
+        gl_TessLevelInner[0] = 16;
+        gl_TessLevelInner[1] = 16;
+    }
+}
+```
+
+The tessellation evaluation shader's input then specifies how to space the subdivisions on each edge.
+There are three options for how to specify the subdivision spacing:
+* equal_spacing - creates subdivisions of equal sizes
+* fractional_odd_spacing - creates an odd number of subdivisions broken into long & short segments
+* fractional_even_spacing - creates an even number of subdivisions broken into long & short segments
+```cpp
+// tessellation evaluation shader
+#version 410 core
+
+layout (quads, fractional_odd_spacing, ccw) in;
+
+uniform sampler2D heightMap;  // the texture corresponding to our height map
+uniform mat4 model;           // the model matrix
+uniform mat4 view;            // the view matrix
+uniform mat4 projection;      // the projection matrix
+
+// received from Tessellation Control Shader - all texture coordinates for the patch vertices
+in vec2 TextureCoord[];
+
+// send to Fragment Shader for coloring
+out float Height;
+
+void main()
+{
+    // get patch coordinate
+    float u = gl_TessCoord.x;
+    float v = gl_TessCoord.y;
+
+    // ----------------------------------------------------------------------
+    // retrieve control point texture coordinates
+    vec2 t00 = TextureCoord[0];
+    vec2 t01 = TextureCoord[1];
+    vec2 t10 = TextureCoord[2];
+    vec2 t11 = TextureCoord[3];
+
+    // bilinearly interpolate texture coordinate across patch
+    vec2 t0 = (t01 - t00) * u + t00;
+    vec2 t1 = (t11 - t10) * u + t10;
+    vec2 texCoord = (t1 - t0) * v + t0;
+
+    // lookup texel at patch coordinate for height and scale + shift as desired
+    Height = texture(heightMap, texCoord).y * 64.0 - 16.0;
+
+    // ----------------------------------------------------------------------
+    // retrieve control point position coordinates
+    vec4 p00 = gl_in[0].gl_Position;
+    vec4 p01 = gl_in[1].gl_Position;
+    vec4 p10 = gl_in[2].gl_Position;
+    vec4 p11 = gl_in[3].gl_Position;
+
+    // compute patch surface normal
+    vec4 uVec = p01 - p00;
+    vec4 vVec = p10 - p00;
+    vec4 normal = normalize( vec4(cross(vVec.xyz, uVec.xyz), 0) );
+
+    // bilinearly interpolate position coordinate across patch
+    vec4 p0 = (p01 - p00) * u + p00;
+    vec4 p1 = (p11 - p10) * u + p10;
+    vec4 p = (p1 - p0) * v + p0;
+
+    // displace point along normal
+    p += normal * Height;
+
+    // ----------------------------------------------------------------------
+    // output patch point position in clip space
+    gl_Position = projection * view * model * p;
+}
+```
+
 
 ### Geometry Shader
 Geometry shader take a single Primitive as input and may output zero or more primitives.
@@ -217,6 +326,8 @@ When mapping a texture to an object, we need to determine which texel (texture p
 
 Create many textures of decreasing size and use one of these sub textures when appropriate. Imagine we had a large room with thousands of objects, each with an attached texture. There will be objects far away that have the same high-resolution texture attached as the objects close to the viewer. Since the objects are far away and probably only produce a few fragments, OpenGL has difficulties retrieving the right color value for its fragment from the high-resolution texture, since it has to pick a texture color for a fragment that spans a large part of the texture. There are some options in OpenGL when approximate a mipmap for a specific resolution.
 
+Cons : overhead memory for storing mip map
+
 - GL_NEAREST_MIPMAP_NEAREST: takes the nearest mipmap to match the pixel size and uses nearest neighbor interpolation for texture sampling.
 - GL_LINEAR_MIPMAP_NEAREST: takes the nearest mipmap level and samples that level using linear interpolation.
 - GL_NEAREST_MIPMAP_LINEAR: linearly interpolates between the two mipmaps that most closely match the size of a pixel and samples the interpolated level via nearest neighbor interpolation.
@@ -299,6 +410,14 @@ Calculate reflection with a normal map or a height map (bump mapping)
 
 ## Lighting
 
+### Local Illumination vs Global Illumination
+Local: objects are only illuminated directly by the light sources. Does not cosider other objects' influence
+* ex: Phong shading
+* Other surfaces cannot block light (no shadows)
+* Omitting light from reflection or refraction of other objects.
+
+Global: Idea that objects do not only reflect light to the viewer, but also to other objects.
+
 ### Phong Lighting Model
 
 Diffuse + Ambient + Reflection 
@@ -357,22 +476,52 @@ An extension of the Phong lighting model that uses a halfway vector instead of a
 ### Forward Ray Tracing
 
 Rays emanate from light sources and bounce around in the scene.
-
 Rays that pass through the projetion plane and contribute to the final image
-
 Really slow and inefficient
 
 ### Backward Ray tracing
 
 For each pixel, trace the eye ray (primary ray) to the first visible surface and for each intersection trace secondary rays:
 
-1. Shadow rays: in directions L to light source
+1. Shadow rays (phong shading + detect object is blocked or not)
 2. Reflected ray
-3. Refracted (transmitted ray)
+3. Refracted (transmitted ray) 折射
+
+More efficient since most of the time is spent in the calculation of intersection.
+To efficiently calculate intersections
+* Bounding boxes
+* Space partitioning
+    - Octree
+        - 8 children for each node.
+        - If object is too compicate for one bounding box, split every boundbox into multi level bounding box.
+        ![](https://i.imgur.com/VQU4Esk.png)
+    - BSP Tree
+        - If that polygon is wholly in front of the plane containing P, move that polygon to the list of nodes in front of P.
+        - If that polygon is wholly behind the plane containing P, move that polygon to the list of nodes behind P.
+        - Lead to fast methods of visibility testing
+        - The root usually takes the middle point
+        - Pervasively used in first person shooting games
+        ![](./images/opengl_images/bsp.jpg)
+    - Portal Culling
+        - Portal culling is a method by which the 3D scene can be broken into areas called cells, which are linked together by portals.
+        - A portal is a window in 3D space that allows objects in one cell (the “out” cell) to be seen from another cell (the “in” cell). 
+        - Work best in scenes where there is limited visibility from one area to another, for example a building or network of caves.
+        ![](./images/opengl_images/portal-diagram.png)
+* Distributed ray tracing (more rays on the edge)
+
+
+### Monte-Carlo ray tracing
+* Cast a ray from the eye through each pixel
+* Cast random rays from the visible point (Instead of tracing additional rays deterministically, we use randomness).
+* Recursive calculation
+
+![](https://i.imgur.com/1rrWirK.png)
+
 
 ### Deffered Shading and Forward Shading
 Deferred shading is based on the idea that we defer or postpone most of the heavy rendering (like lighting) to a later stage. 
 Deferred shading consists of two passes: in the first pass, called the **geometry pass**, we render the scene once and retrieve all kinds of geometrical information from the objects that we store in a collection of textures called the G-buffer.
+
 
 G-buffer
 - A 3D world-space position vector to calculate the (interpolated) fragment position variable used for lightDir and viewDir.
@@ -394,6 +543,12 @@ Disadvantage
 - high memory usage
 -  doesn't support blending (as we only have information of the top-most fragment)
 - MSAA can be computationally expensive. During the geometry pass, MSAA samples the visibility of primitives at multiple subpixel positions. Therefore, performing lighting calculations with multisampled data in the subsequent lighting pass can also incur significant costs.[details](https://stackoverflow.com/questions/34981878/deferred-shading-anti-aliasing)
+
+### Tile-based deferred rendering (TBDR)
+Contains a small amount of memory which is physically on the GPU chip and so is very fast to access. 
+By splitting the render target into tiles just small enough to fit in this memory, and processing those one at a time, we minimise the amount of interaction with the slower main memory - rather than having to fetch, test, blend etc the depth buffer and colour buffer values for each pixel in each triangle as we rasterise the triangles, we rasterise the tile into the fast memory and write each tile's final raster out to main memory as we are done with it.
+
+Additionally, we don't rasterise any triangles until we have calculated which triangles are visible for each pixel/quad in the tile. (Same as deferred rendering)
 
 ### Gamma correction
 
