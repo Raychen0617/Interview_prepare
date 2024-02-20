@@ -295,7 +295,7 @@ glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 ```
 
 ### Rendering Pipeline
-![](./images/opengl_images/rendering_pipeline.png){ width=100%}
+![](./images/opengl_images/rendering_pipeline.png)
 
 ## Texture
 
@@ -640,7 +640,6 @@ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 ### Face culling
 
 Use winding order to check if the object is facing front face or back face. 
-
 Use case: not rendering model inside (cannot see mode’s inside) 
 
 ```glsl
@@ -651,7 +650,7 @@ glFrontFace(GL_CCW); // counter clockwise
 
 ### Transparency & Blending
 
-### Discard Fragment
+#### Discard Fragment
 
 Some effects do not care about partial transparency, but either want to show something or nothing at all based on the color value of a texture. (grass)
 
@@ -671,9 +670,9 @@ void main()
     FragColor = texColor;
 }
 ```
+![Untitled](./images/opengl_images/Untitled11.png)
 
-### Blending
-
+#### Blending
 All about objects (or parts of them) not having a solid color but having a combination of colors from the object itself and any other object behind it with varying intensity. = blend several pixel colors (from different objects) to a single color
 
 The formula used is  C¯result=C¯source∗Fsource+C¯destination∗Fdestination
@@ -701,9 +700,6 @@ GL_MIN: takes the component-wise minimum of both colors: C¯result=min(Dst,Src)
 GL_MAX: takes the component-wise maximum of both colors: C¯result=max(Dst,Src)
 */
 ```
-
-![Untitled](./images/opengl_images/Untitled11.png)
-
 ![Untitled](./images/opengl_images/Untitled12.png)
 
 ### Frame buffer
