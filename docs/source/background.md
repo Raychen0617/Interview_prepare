@@ -5,6 +5,7 @@
 1. Perform NAS and Pruning on YOLOv5’s backbone architecture
 2. Map optimized backbone architecture back to YOLOv5
 3. Apply KD and Quantization on the whole network
+
 ![](./images/resume/optimization_pipeline.png)
 ### NAS
 Goal: Automatically search a network architecture that leads to the best performance
@@ -79,3 +80,18 @@ Rotation issue
 
 - when the model is rotating by z axis, 上下顛倒
 - when the model is rotating 90 or 270 degree, the image wil disappear since there are no enough textures
+
+
+## Neural Radiance Field
+### Method
+* **To represents a scene using a fully-connected (non-convolutional) deep network.**
+* Input is a single continuous 5D coordinate (spatial location (x, y, z) and camera viewing direction (θ, φ)) 
+* Output is the volume density and view-dependent emitted radiance at that spatial location (r, g, b).
+* Querying 5D coordinates along camera rays and use classic volume rendering techniques to project the output colors and densities into an image
+![](./images/resume/nerf1.svg)
+![](./images/resume/nerf2.png)
+
+### Ways to improve for synthesizing novel angles
+* Add noise while training. (ex: Input coordinate perturbation, point sampling)
+* Utilize image features (embedded by CNN networks).
+* Model pretrained on similar categories.
