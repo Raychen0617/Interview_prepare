@@ -2,13 +2,11 @@
 
 ## Basics
 
-![Untitled](./images/opengl_images/Untitled.png)
-
 ### Primitives
-
 ![Untitled](./images/opengl_images/Untitled1.png)
-
 ![Untitled](./images/opengl_images/Untitled2.png)
+
+![Untitled](./images/opengl_images/Untitled.png)
 
 ### VBO
 

@@ -282,7 +282,7 @@ volatile bool stop = false;
 - Normally, when a function is called, the CPU performs several steps, including storing the memory address of the instruction following the function call, copying arguments onto the stack, and transferring control to the specified function.
 - For small, commonly used functions, the overhead of making the function call can be more significant than the actual execution time of the function.
 - Inline functions eliminate this overhead.
-- Similar to define，but with type checking, truly possessing function. characteristics."
+- Similar to define, but with type checking, truly possessing function characteristics.
 
 ### Intrinsic
 
@@ -406,7 +406,7 @@ int main()
 ### Process vs Thread
 Process: Processes are the programs that are dispatched from the ready state and are scheduled in the CPU for execution. PCB(Process Control Block) holds the concept of process. A process can create other processes which are known as Child Processes. The process takes more time to terminate and it is isolated means it does not share the memory with any other process. 
 
-Thread:Thread is the segment of a process which means a process can have multiple threads and these multiple threads are contained within a process. A thread has three states: Running, Ready, and Blocked. The thread takes less time to terminate as compared to the process but unlike the process, threads do not isolate (share data section = global variable, OS resources). Each thread has its own thread control block. 
+Thread: Thread is the segment of a process which means a process can have multiple threads and these multiple threads are contained within a process. A thread has three states: Running, Ready, and Blocked. The thread takes less time to terminate as compared to the process but unlike the process, threads do not isolate (share data section = global variable, OS resources). Each thread has its own thread control block. 
 
 | S.NO | Process                                                                   | Thread                                                                             |
 |------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------|
@@ -429,6 +429,21 @@ Thread:Thread is the segment of a process which means a process can have multipl
 ## OOP
 
 The main aim of OOP is to bind together the data and the functions that operate on them so that no other part of the code can access this data except that function.
+
+### Constructor vs Destructor
+
+| S. No. | Constructor | Destructor |
+| --- | --- | --- |
+| 1. | Constructor helps to initialize the object of a class. | Whereas destructor is used to destroy the instances. |
+| 2. | It is declared as className( arguments if any ){Constructor’s Body }. | Whereas it is declared as ~ className( no arguments ){ }. |
+| 3. | Constructor can either accept arguments or not. | While it can’t have any arguments. |
+| 4. | A constructor is called when an instance or object of a class is created. | It is called while object of the class is freed or deleted. |
+| 5. | Constructor is used to allocate the memory to an instance or object. | While it is used to deallocate the memory of an object of a class. |
+| 6. | Constructor can be overloaded. | While it can’t be overloaded. |
+| 7. | The constructor’s name is same as the class name. | Here, its name is also same as the class name preceded by the tiled (~) operator. |
+| 8. | In a class, there can be multiple constructors. | While in a class, there is always a single destructor. |
+| 9. | There is a concept of copy constructor which is used to initialize an object from another object. | While here, there is no copy destructor concept. |
+| 10. | They are often called in successive order. | They are often called in reverse order of constructor. |
 
 ### Constructor
 Constructors are used to create, and can initialize, objects of their class type.
@@ -754,26 +769,10 @@ class GFG
 };
 ```
 
-### Constructor vs Destructor
-
-| S. No. | Constructor | Destructor |
-| --- | --- | --- |
-| 1. | Constructor helps to initialize the object of a class. | Whereas destructor is used to destroy the instances. |
-| 2. | It is declared as className( arguments if any ){Constructor’s Body }. | Whereas it is declared as ~ className( no arguments ){ }. |
-| 3. | Constructor can either accept arguments or not. | While it can’t have any arguments. |
-| 4. | A constructor is called when an instance or object of a class is created. | It is called while object of the class is freed or deleted. |
-| 5. | Constructor is used to allocate the memory to an instance or object. | While it is used to deallocate the memory of an object of a class. |
-| 6. | Constructor can be overloaded. | While it can’t be overloaded. |
-| 7. | The constructor’s name is same as the class name. | Here, its name is also same as the class name preceded by the tiled (~) operator. |
-| 8. | In a class, there can be multiple constructors. | While in a class, there is always a single destructor. |
-| 9. | There is a concept of copy constructor which is used to initialize an object from another object. | While here, there is no copy destructor concept. |
-| 10. | They are often called in successive order. | They are often called in reverse order of constructor. |
-
 ### Mutable
-
 **What is the need of mutable?**
-
-Sometimes there is requirement to modify one or more data members of class / struct through const function even though you don’t want the function to update other members of class / struct. This task can be easily performed by using mutable keyword. Consider this example where use of mutable can be useful. Suppose you go to hotel and you give the order to waiter to bring some food dish. After giving order, you suddenly decide to change the order of food. Assume that hotel provides facility to change the ordered food and again take the order of new food within 10 minutes after giving the 1st order. After 10 minutes order can’t be cancelled and old order can’t be replaced by new order. See the following code for details.
+Sometimes there is requirement to modify one or more data members of class / struct through const function even though you don’t want the function to update other members of class / struct. This task can be easily performed by using mutable keyword. 
+Consider this example where use of mutable can be useful. Suppose you go to hotel and you give the order to waiter to bring some food dish. After giving order, you suddenly decide to change the order of food. Assume that hotel provides facility to change the ordered food and again take the order of new food within 10 minutes after giving the 1st order. After 10 minutes order can’t be cancelled and old order can’t be replaced by new order. See the following code for details.
 
 ```c
 #include <bits/stdc++.h>
