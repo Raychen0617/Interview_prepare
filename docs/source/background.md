@@ -9,7 +9,6 @@
 * The MIP and global affective context information are integrated into the proposed dual-pathway vit architecture.
 
 #### Method
-
 ![](./images/resume/method.png)
 
 ##### Dual-pathway learning
@@ -22,7 +21,8 @@
 * To remove unimportant patches.
 * Denote the token importance by the similarity scores between the global class token and each patch token.
 ##### CPA
-Based on the importance score of each token, we then costruct a newly selected query matrix by selecting the top α query vectors.
+Based on the importance score of each token, we then costruct a newly selected query matrix by selecting the top query vectors.
+
 ![](./images/resume/cpa.png)
 
 
