@@ -1,33 +1,71 @@
 # Background
 
-### Paper
-#### Problem
+## MobileDrive
+### Model optimization pipeline
+1. Perform NAS and Pruning on YOLOv5’s backbone architecture
+2. Map optimized backbone architecture back to YOLOv5
+3. Apply KD and Quantization on the whole network
+![](./images/resume/optimization_pipeline.png)
+### NAS
+Goal: Automatically search a network architecture that leads to the best performance
+Architecture:
+* Blocks: bottleneck block, inception block, residual block, etc.
+* Layers: convs, pooling, fc, etc.
+* Hyperparameters: number of filters, size of kernel, stride, padding, etc.
+
+Search space: The set containing all the possible architectures
+
+#### One Shot NAS
+SuperNet: A huge network containing all search space candidates
+Pros: Much faster
+![](./images/resume/oneshot.png)
+
+
+### Pruning
+#### Channel Pruning
+Goal: Aim to remove less important channels while minimizing the accuracy loss  
+Ranking algorithm: To rank the importance of every channel 
+![](./images/resume/channel_pruning.png)
+
+### KD
+Teacher (large, accurate model) 
+Student (small, efficient model)
+To Improve student’s accuracy (better than training from scratch)  
+
+## Paper
+### Problem
 * Most existing methods lack attention to affective meaning in group dynamics and fail to acount for the contextual relevance of faces and objects in group-level images.
 
-#### Proposal
+### Motivation
+* Using all MIP produce worse results.
+* Using MIP only is not enough (tell the story).
+* Not all patches are needed. Complex background (crowded images) requires removing uninformation tokens.
+
+### Proposal
 * First work introducing MIP into the group affect task and validate that MIP plays a crucial role in group affect recognition. 
 * The MIP and global affective context information are integrated into the proposed dual-pathway vit architecture.
 
-#### Method
+### Method
 ![](./images/resume/method.png)
 
-##### Dual-pathway learning
+#### Dual-pathway learning
 * Both the global and MIP image are tokenized into patches
 * Then class token and a learnable position embedding are added to both branches.
-##### Transformer Encoder
+#### Transformer Encoder
 - The global branch is the large (primary) branch with a coarse patch size, with a larger embedding size, and more transformer encoders.
 - The MIP image is the input of a small (complementary) branch with fine-grained patch size (i.e., 16), fewer encoders, and a smaller embedding size.
-##### Token Ranking Module
+#### Token Ranking Module
 * To remove unimportant patches.
 * Denote the token importance by the similarity scores between the global class token and each patch token.
-##### CPA
+#### CPA
 Based on the importance score of each token, we then costruct a newly selected query matrix by selecting the top query vectors.
 
-##### Class Token and Positional Encoding
+#### Class Token and Positional Encoding
 [Intro to Class token and positional embedding](https://deepganteam.medium.com/vision-transformers-for-computer-vision-9f70418fe41a)
 [Why use class token?](https://datascience.stackexchange.com/questions/90649/class-token-in-vit-and-bert)
 ![](./images/resume/cpa.png)
 
+[Presentation slide](https://docs.google.com/presentation/d/1_wSrmuKN2r8Ue_UypCsoKqRkfPLuOJQg/edit?usp=sharing&ouid=117334240525465093292&rtpof=true&sd=true)
 
 ## CT MRI Volume Rendering
 
