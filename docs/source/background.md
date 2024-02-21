@@ -9,6 +9,7 @@
 ![](./images/resume/optimization_pipeline.png)
 ### NAS
 Goal: Automatically search a network architecture that leads to the best performance
+
 Architecture:
 * Blocks: bottleneck block, inception block, residual block, etc.
 * Layers: convs, pooling, fc, etc.
@@ -87,8 +88,9 @@ Rotation issue
 * **To represents a scene using a fully-connected (non-convolutional) deep network.**
 * Input is a single continuous 5D coordinate (spatial location (x, y, z) and camera viewing direction (θ, φ)) 
 * Output is the volume density and view-dependent emitted radiance at that spatial location (r, g, b).
-* Querying 5D coordinates along camera rays and use classic volume rendering techniques to project the output colors and densities into an image
-![](./images/resume/nerf1.svg)
+* Querying 5D coordinates along camera rays and use classic volume rendering techniques to project the output colors and densities into an image.
+* Volume density is unrelated to view angles and only rely on coordinates. Therefore, do two passes in the neural network. The first pass recieve coordinates as input and output volume density and an intermediate value for rgb. Then, the second pass recieve the intermediate value and viewing direction to produce final rgb. 
+![](./images/resume/nerf1.svg){width="60%"}
 ![](./images/resume/nerf2.png)
 
 ### Ways to improve for synthesizing novel angles
