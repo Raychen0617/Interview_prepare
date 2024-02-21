@@ -408,7 +408,6 @@ void main()
 ### Bump and normal mapping
 
 To represent surface details and avoid heavy geomertric computation.
-
 Calculate reflection with a normal map or a height map (bump mapping)
 
 ![Untitled](./images/opengl_images/Untitled6.png)
@@ -473,10 +472,11 @@ Interpolates normal vectors across the surface of the polygon from the vertex no
 
 An extension of the Phong lighting model that uses a halfway vector instead of a reflection vector to calculate specular reflections, overcoming some of the limitations of Phong shading.
 
-- replace v, r with n and h
-- **[Halfway Vector**: A unit vector that is exactly halfway between the light direction and the view direction1](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C0%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22Instead%20of...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A6%2C%22highlightText%22%3A%22Instead%20of%20relying%20on%20a%20reflection%20vector%20we're%20using%20a%20so%20called%20halfway%20vector%20that%20is%20a%20unit%20vector%20exactly%20halfway%20between%20the%20view%20direction%20and%20the%20light%20direction.%22%2C%22snippets%22%3A%5B%5D%7D%7D)[2](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C1%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22%5C%22Instead%20o...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A37%2C%22highlightText%22%3A%22%5C%22Instead%20of%20relying%20on%20a%20reflection%20vector%20we're%20using%20a%20so%20called%20halfway%20vector%20that%20is%20a%20unit%20vector%20exactly%20halfway%20between%20the%20surface%20normal%20and%20the%20light's%20direction%20vector.%20%5C%22%20-%3E%20I%20think%20you%20meant%20exactly%20between%20the%20light%20vector%20and%20the%20view%20vector.%22%2C%22snippets%22%3A%5B%5D%7D%7D). [The closer this vector aligns with the surface normal, the higher the specular contribution3](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C2%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22The%20closer...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A6%2C%22highlightText%22%3A%22The%20closer%20this%20halfway%20vector%20aligns%20with%20the%20surface's%20normal%20vector%2C%20the%20higher%20the%20specular%20contribution.%22%2C%22snippets%22%3A%5B%5D%7D%7D).
-- Comparison with Phong Shading: Blinn-Phong shading produces more realistic results, especially with low shininess values, and avoids the specular cutoff issue of Phong shading. [However, it requires a higher shininess exponent to achieve similar effects as Phong shading4](https://edgeservices.bing.com/edgesvc/chat?udsframed=1&form=SHORUN&clientscopes=chat,noheader,udsedgeshop,channelstable,ntpquery,devtoolsapi,udsinwin11,udsdlpconsent,udsarefresh,cspgrd,&shellsig=3c5e6a8f69df2d6d8f635efef0ace0d9e0c6d6dc&setlang=en-US&darkschemeovr=1#sjevt%7CDiscover.Chat.SydneyClickPageCitation%7Cadpclick%7C3%7C6d91d882-0e00-45f4-9f99-8c0f9080d6a3%7C%7B%22sourceAttributions%22%3A%7B%22providerDisplayName%22%3A%22As%20a%20resul...%22%2C%22pageType%22%3A%22html%22%2C%22pageIndex%22%3A1%2C%22relatedPageUrl%22%3A%22https%253A%252F%252Flearnopengl.com%252FAdvanced-Lighting%252FAdvanced-Lighting%22%2C%22lineIndex%22%3A15%2C%22highlightText%22%3A%22As%20a%20result%2C%20to%20get%20visuals%20similar%20to%20Phong%20shading%20the%20specular%20shininess%20exponent%20has%20to%20be%20set%20a%20bit%20higher.%22%2C%22snippets%22%3A%5B%5D%7D%7D).
-- Improve efficiency (in phong model, it requires the calculation of a new reflection vector and view vector for each vertex)
+- Replace v, r with n and h
+- **Halfway Vector**: A unit vector that is exactly halfway between the light direction and the view direction.
+- Comparison with Phong Shading: Blinn-Phong shading produces more realistic results, especially with low shininess values, and avoids the **specular cutoff issue** of Phong shading.
+- Specular cutoff issue is when the angle between r and v is larger than 90 degrees, then the cos will product negative values.
+![](./images/opengl_images/blinn.png)
 
 ### Forward Ray Tracing
 
@@ -549,6 +549,8 @@ Performs:
 2. ray-triangle intersection
 
 ### Deffered Shading and Forward Shading
+Forward Rendering processes each object in the scene individually, handling the lighting for each as it goes. It's a straightforward approach, yet it can become computationally heavy when dealing with complex scenes.
+
 Deferred shading is based on the idea that we defer or postpone most of the heavy rendering (like lighting) to a later stage. 
 Deferred shading consists of two passes: in the first pass, called the **geometry pass**, we render the scene once and retrieve all kinds of geometrical information from the objects that we store in a collection of textures called the G-buffer.
 
@@ -571,12 +573,12 @@ Advantage
 
 Disadvantage
 - high memory usage
--  doesn't support blending (as we only have information of the top-most fragment)
+- Doesn't support blending (as we only have information of the top-most fragment)
 - MSAA can be computationally expensive. During the geometry pass, MSAA samples the visibility of primitives at multiple subpixel positions. Therefore, performing lighting calculations with multisampled data in the subsequent lighting pass can also incur significant costs.[details](https://stackoverflow.com/questions/34981878/deferred-shading-anti-aliasing)
 
 ### Tile-based deferred rendering (TBDR)
 Contains a small amount of memory which is physically on the GPU chip and so is very fast to access. 
-By splitting the render target into tiles just small enough to fit in this memory, and processing those one at a time, we minimise the amount of interaction with the slower main memory - rather than having to fetch, test, blend etc the depth buffer and colour buffer values for each pixel in each triangle as we rasterise the triangles, we rasterise the tile into the fast memory and write each tile's final raster out to main memory as we are done with it.
+By splitting the render target into tiles just small enough to fit in this memory, and processing those one at a time, we minimize the amount of interaction with the slower main memory - rather than having to fetch, test, blend etc the depth buffer and colour buffer values for each pixel in each triangle as we rasterise the triangles, we rasterise the tile into the fast memory and write each tile's final raster out to main memory as we are done with it.
 
 Additionally, we don't rasterise any triangles until we have calculated which triangles are visible for each pixel/quad in the tile. (Same as deferred rendering)
 
