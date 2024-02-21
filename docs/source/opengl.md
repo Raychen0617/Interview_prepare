@@ -506,12 +506,17 @@ To efficiently calculate intersections
         - Work best in scenes where there is limited visibility from one area to another, for example a building or network of caves.
         ![](./images/opengl_images/portal-diagram.png)
 * Distributed ray tracing (more rays on the edge)
-#### RT Core (Ray tracing hardware)
-Performs:
-1. ray-bounding volume hierachy travesal
-2. ray-triangle intersection
 
-### Monte-Carlo ray tracing
+### Stochastic Ray Tracing
+Allow shadow rays to go to a random point on area light.
+ex: 1/3 light is block.
+![](./images/resume/ray_tracing1.png)
+
+### Kajiya-Style Diffuse Interflection
+Trace multiple samples in a single fragment (Also anti-aliasing).
+![](./images/resume/ray_tracing.png)
+
+### Monte-Carlo Ray tracing
 * Cast a ray from the eye through each pixel
 * Cast random rays from the visible point (Instead of tracing additional rays deterministically, we use randomness).
 * Recursive calculation
@@ -531,6 +536,10 @@ Performs:
 | Acceleration structure | (Hierarchical) Z-buffering | Bounding volume hierarchies |
 | Drawbacks           | Incoherent queries difficult to make | Traverses memory incoherently |
 
+### RT Core (Ray tracing hardware)
+Performs:
+1. ray-bounding volume hierachy travesal
+2. ray-triangle intersection
 
 ### Deffered Shading and Forward Shading
 Deferred shading is based on the idea that we defer or postpone most of the heavy rendering (like lighting) to a later stage. 
