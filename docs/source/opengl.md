@@ -506,7 +506,10 @@ To efficiently calculate intersections
         - Work best in scenes where there is limited visibility from one area to another, for example a building or network of caves.
         ![](./images/opengl_images/portal-diagram.png)
 * Distributed ray tracing (more rays on the edge)
-
+#### RT Core (Ray tracing hardware)
+Performs:
+1. ray-bounding volume hierachy travesal
+2. ray-triangle intersection
 
 ### Monte-Carlo ray tracing
 * Cast a ray from the eye through each pixel
@@ -514,6 +517,19 @@ To efficiently calculate intersections
 * Recursive calculation
 
 ![](https://i.imgur.com/1rrWirK.png)
+
+### Rasterization vs Ray Tracing
+**Rasterization:** For each object, draw the closest pixel.
+**Ray Tracing:** For each pixel, draw the closest object.
+
+| Key Concept          | Rasterization        | Ray Tracing            |
+|----------------------|----------------------|------------------------|
+| Fundamental question| What pixels does geometry cover? | What is visible along this ray? |
+| Key operation       | Test if pixel is inside triangle | Ray-triangle intersection |
+| How streaming works | Stream triangles (each tests pixels) | Stream rays (each tests intersections) |
+| Inefficiencies      | Shade many tris per pixel (overdraw) | Test many intersections per ray |
+| Acceleration structure | (Hierarchical) Z-buffering | Bounding volume hierarchies |
+| Drawbacks           | Incoherent queries difficult to make | Traverses memory incoherently |
 
 
 ### Deffered Shading and Forward Shading
