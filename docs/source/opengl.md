@@ -112,7 +112,7 @@ To divide primitives into smaller primitives to make geometry has a higher resol
 
 Three stage in tesellation:
 1. Tessellation Control Shader (Hull Shader): Determine how much tessellation to do.
-2. Tessellation Primitive Generator(Tessellator): Generates the primitives needed for the division. This step is done by hardware.
+2. Tessellation Primitive Generator(Tessellator): To subdivide a domain (quad, tri, or line) into many smaller objects (triangles, points or lines). This step is done by hardware.
 3. Tessellation Evaluation Shader(Domain Shader): Decides where those new verticies should be placed.
 
 main.cpp
@@ -294,6 +294,13 @@ glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 ### Rendering Pipeline
 ![](./images/opengl_images/rendering_pipeline.png)
+
+**Fixed graphic pipeline:**
+* Vertex transformation: Each vertex data is transformed by the modelview matrix, and then by the perspective projection matrix.
+* Rasterization: Based on the index data (EBO) and the perspective-transformed vertices, the polygons are converted into pixels on the screen. The fixed pipeline performs per-vertex lighting before rasterization, and then interpolates the pixel colors using a hyperbolic interpolation algorithm.
+* Z-buffering and alpha blending: The depth and transparency of each pixel are tested and blended with the existing pixels on the screen.
+* Rendering: The final image is displayed on the screen.
+
 
 ## Texture
 

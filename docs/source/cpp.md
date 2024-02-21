@@ -235,6 +235,17 @@ int main()
     1. 默認的繼承訪問許可權。 struct 是 public 的，class 是 private 的。
     2. struct 作為數據結構的實現體，它預設的數據訪問控制是 public 的，而 class 作為對象的實現體，它預設的成員變數訪問控制是 private 的。
 
+### Union
+Similar to structure.
+Member variables in a union share the same memory location, unlike a structure that allocates memory separately for each member variable.
+When the available memory is limited, it can be used to achieve memory efficiency.
+
+```cpp
+union Union_Name {
+    // Declaration of data members
+}; union_variables;
+```
+
 ### Extern
 
 Extern is used before the declaration of a variable or a function, to indicate that “this variable/function is defined elsewhere, and is referenced here.

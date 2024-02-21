@@ -88,6 +88,30 @@ int clearBit(int num, int i) {
 1. a -= b, b += a, a = b - a
 2. a ^= b, b ^= a, a ^= b
 
+### Big Little endian
+Big-endian: The most-significant byte of a word is stored at lower memory addresses.
+Little-endian: The most-significant byte of a word is stored at higher memory addresses.
+![](./images/endian.png)
+
+Quiz: To check is big endian, assign with 00000001 00000010. If 
+```cpp
+bool IsBigEndian()
+{
+    union
+    {
+        unsigned short a ;
+        char b ; // c.b represents the first byte of the memory location occupied by the union member c
+    } c;
+
+
+    c.a =0x0102 ;
+    
+	if(c.b == 1) // The first byte (c.b) is 00000001, which is 1
+        return true ;
+    else
+        return false ;
+}
+```
 
 ## Practice & Leetcode
 There is an unsigned integer n, and we want to swap the value in position 0 with 1, position 2 with 3, and so on and so forth. 
