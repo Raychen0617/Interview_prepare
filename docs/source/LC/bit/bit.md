@@ -72,7 +72,7 @@ int setBit(int i, int num){
 }
 
 // Update
-int upateBit(int num, int i, Boolean bitIs1)
+int upateBit(int num, int i, Boolean bitIs1){
     int mast = ~(1 << i)
 		return (num & mask) | (bitIs1 << i); 
 }
@@ -83,6 +83,11 @@ int clearBit(int num, int i) {
 		return num & mask;
 }
 ```
+
+### Switch a and b
+1. a -= b, b += a, a = b - a
+2. a ^= b, b ^= a, a ^= b
+
 
 ## Practice & Leetcode
 There is an unsigned integer n, and we want to swap the value in position 0 with 1, position 2 with 3, and so on and so forth. 
