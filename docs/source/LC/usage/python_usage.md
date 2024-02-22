@@ -27,17 +27,12 @@
 | and                         | Logical AND                                 |
 | or                          | Logical OR                                  |
 
+> Python integer division acts a bit weird with -ve numbers ex: -3//2 will give -2 answer instead of -1 so always use int(-3/2) for integer division in problems
     
 # Data Structures
 
 ## Lists
-
 Lists are used to store multiple items in a single variable
-
-- *Operations Time Complexities*
-    
-    ![Untitled](https://user-images.githubusercontent.com/47276307/172330098-1c5f0a6e-7f80-4f4f-9be6-1d734e2c70cd.jpg)
-    
 
 ```python
 nums = [1,2,3]
@@ -55,7 +50,7 @@ nums.sort() # sorts list [does NOT return sorted list]
 # Python's default sort uses Tim Sort, which is a combination of both merge sort and insertion sort.
 ```
 
-List slicing in Python
+List slicing
 ```python
 # 包含 start 但不包含 stop
 a[start:stop]  # items start through stop-1
@@ -94,7 +89,6 @@ dict.copy() # returns copy of the dictionary
 # NOTE : items() Returns view object that will be updated with any future
 # changes to dict
 dict.pop(KEY) # pops key-value pair with that key
-dict.popitem() # removes most recent pair added
 dict.setDefault(KEY,DEFAULT_VALUE)
 # returns value of key, if key exists, else default value returned
 # If the key exist, this parameter(DEFAULT_VALUE) has no effect.
@@ -170,15 +164,13 @@ heapq.heapify(nums) # converts list into heap. Can be converted back to list by 
 heapq.heappush(nums, element) # Push an element into the heap
 heapq.heappop(nums) # Pop an element from the heap
 
-
 # Used to return the k largest elements from the iterable specified 
 # The key is a function with that accepts single element from iterable,
 # and the returned value from that function is then used to rank that element in the heap
 heapq.nlargest(k, iterable, key = fun)
 heapq.nsmallest(k, iterable, key = fun)
 
-
-# By default heapq in python is min heap, 
+# By default heapq in python is min heap
 # If we want to use max heap we can simply invert the value
 ```
 
@@ -193,10 +185,7 @@ set = {1,2,3}
 set.add(item)
 set.remove(item)
 set.discard(item) 
-set.remove(item)
-
 # Remove will throw error if item is not there, discard will not
-set.pop() # removes random item (since unordered)
 ```
 
 ## Tuples
@@ -331,159 +320,12 @@ string.isupper() # The isupper() method returns True if all cased characters in 
     ```
     
 
-# Clean Code Tips
-
-- **Doc Strings -**  Documentation for your functions in the interview to look slick 😎
-    
-    A docstring is short for documentation string.
-    
-    Python docstrings (documentation strings) are the [string](https://www.programiz.com/python-programming/string) literals that appear right after the definition of a function, method, class, or module.
-    
-    Triple quotes are used while writing docstrings. For example:
-    
-    ```
-    def double(num):
-        """Function to double the value"""
-        return 2*num
-    ```
-    
-    Docstrings appear right after the definition of a function, class, or a module. This separates docstrings from multiline comments using triple quotes.
-    
-    The docstrings are associated with the object as their `__doc__` attribute.
-    
-    So, we can access the docstrings of the above function with the following lines of code:
-    
-    ```
-    def double(num):
-        """Function to double the value"""
-        return 2*num
-    print(double.__doc__)
-    ```
-    
-    **Output**
-    
-    ```
-    Function to double the value
-    ```
-    
-- Use **Assert keyword** in python for testing edge cases. Looks more professional.
-    
-    ### Definition and Usage
-    
-    The `assert` keyword is used when debugging code.
-    
-    The `assert` keyword lets you test if a condition in your code returns True, if not, the program will raise an AssertionError.
-    
-    You can write a message to be written if the code returns False, check the example below.
-    
-    ```python
-    x = "hello"
-    
-    #if condition returns False, AssertionError is raised:
-    assert x == "goodbye", "x should be 'hello'"
-    ```
-    
-- **ALWAYS** be aware of any code snippet that is being **REPEATED** in your solution. **MODULARITY** #1 Priority. Refactoring is also an important part of  interview.
-    - This is usually asked as a follow up after coding the solution. *Are there any changes you want to make to this solution?*
-
 # Miscellaneous
-
-- How to take multiple line input in python?
-    
-    [Taking multiple inputs from user in Python - GeeksforGeeks](https://www.geeksforgeeks.org/taking-multiple-inputs-from-user-in-python/)
-    
-    - Using split() method
-    - Using List comprehension
-    
-    **Syntax :**
-    
-    ```
-    input().split(separator, maxsplit)
-    ```
-    
-    ## Example
-    
-    ```python
-    # Python program showing how to
-    # multiple input using split
-     
-    # taking two inputs at a time
-    x, y = input("Enter a two value: ").split()
-    print("Number of boys: ", x)
-    print("Number of girls: ", y)
-    print()
-     
-    # taking three inputs at a time
-    x, y, z = input("Enter a three value: ").split()
-    print("Total number of students: ", x)
-    print("Number of boys is : ", y)
-    print("Number of girls is : ", z)
-    print()
-     
-    # taking two inputs at a time
-    a, b = input("Enter a two value: ").split()
-    print("First number is {} and second number is {}".format(a, b))
-    print()
-     
-    # taking multiple inputs at a time
-    # and type casting using list() function
-    x = list(map(int, input("Enter a multiple value: ").split()))
-    print("List of students: ", x)
-    ```
-    
-    ```python
-    # Python program showing
-    # how to take multiple input
-    # using List comprehension
-     
-    # taking two input at a time
-    x, y = [int(x) for x in input("Enter two value: ").split()]
-    print("First Number is: ", x)
-    print("Second Number is: ", y)
-    print()
-     
-    # taking three input at a time
-    x, y, z = [int(x) for x in input("Enter three value: ").split()]
-    print("First Number is: ", x)
-    print("Second Number is: ", y)
-    print("Third Number is: ", z)
-    print()
-     
-    # taking two inputs at a time
-    x, y = [int(x) for x in input("Enter two value: ").split()]
-    print("First number is {} and second number is {}".format(x, y))
-    print()
-     
-    # taking multiple inputs at a time
-    x = [int(x) for x in input("Enter multiple value: ").split()]
-    print("Number of list is: ", x)
-    
-    # taking multiple inputs at a time separated by comma
-    x = [int(x) for x in input("Enter multiple value: ").split(",")]
-    print("Number of list is: ", x)
-    ```
     
 - Important Python Math Functions
     
-    [Python Math Module - GeeksforGeeks](https://www.geeksforgeeks.org/python-math-module/)
-    
-    - Log Function
-    
-    [Log functions in Python - GeeksforGeeks](https://www.geeksforgeeks.org/log-functions-python/)
-    
-    ```
-    Syntax :
-    math.log(a,Base)
-    Parameters :a : The numeric value
-    Base :  Base to which the logarithm has to be computed.
-    Return Value :
-    Returns natural log if 1 argument is passed and log with
-    specified base if 2 arguments are passed.
-    Exceptions :
-    Raises ValueError is a negative no. is passed as argument.
-    ```
-    
     ```python
+    # Syntax : math.log(a, Base)
     import math
       
     # Printing the log base e of 14
@@ -493,18 +335,10 @@ string.isupper() # The isupper() method returns True if all cased characters in 
     # Printing the log base 5 of 14
     print ("Logarithm base 5 of 14 is : ", end="")
     print (math.log(14,5))
-    ```
     
-    - Finding the ceiling and the floor value
-        - Ceil value means the smallest integral value greater than the number and the floor value means the greatest integral value smaller than the number. This can be easily calculated using the ceil() and floor() method respectively.
-    
-    ```python
     # Python code to demonstrate the working of
     # ceil() and floor()
-     
-    # importing "math" for mathematical operations
-    import math
-     
+    #   
     a = 2.3
      
     # returning the ceil of 2.3 (i.e 3)
@@ -515,11 +349,6 @@ string.isupper() # The isupper() method returns True if all cased characters in 
     print ("The floor of 2.3 is : ", end="")
     print (math.floor(a))
     
-    ```
-    
-    - Other Important functions
-    
-    ```python
     # Constants
     # Print the value of Euler e (2.718281828459045)
     print (math.e)
@@ -539,35 +368,23 @@ string.isupper() # The isupper() method returns True if all cased characters in 
     # returning the converted value from degrees to radians
     print ("The converted value from degrees to radians is : ", end="")
     print (math.radians(b))
-    ```
-    
-    ```python
     
     ** bin(int) **
     bin(anyNumber) # Returns binary version of number
     
     ** divmod(int,int) **
     divmod(dividend,divisor) # returns tuple like (quotient, remainder)
-    
     ```
     
 - Python cmp_to_key function to sort list with custom compare function
-    
-    [Sort a list of lists with a custom compare function](https://stackoverflow.com/questions/5213033/sort-a-list-of-lists-with-a-custom-compare-function)
-    
-    ## How the custom comparator works
-    
-    When providing a custom comparator, it should generally return an integer/float value that follows the following pattern (as with most other programming languages and frameworks):
-    
-    - return a negative value (`< 0`) when the left item should be sorted *before* the right item
-    - return a positive value (`> 0`) when the left item should be sorted *after* the right item
-    - return `0` when both the left and the right item have the same weight and should be ordered "equally" without precedence
+    return a negative value (`< 0`) when the left item should be sorted *before* the right item
+    return a positive value (`> 0`) when the left item should be sorted *after* the right item
+    return `0` when both the left and the right item have the same weight and should be ordered "equally" without precedence
     
     ```python
     from functools import cmp_to_key
     sorted(mylist, key=cmp_to_key(compare))
     
-    # Example
     def compare(item1, item2):
         if fitness(item1) < fitness(item2):
             return -1
@@ -578,14 +395,5 @@ string.isupper() # The isupper() method returns True if all cased characters in 
     ```
     
 
-> Python integer division acts a bit weird with -ve numbers ex: -3//2 will give -2 answer instead of -1 so always use int(-3/2) for integer division in problems
-> 
 
-# Resources
 
-- PDF with all Python Data Structures in-depth
-    
-    [Python Data Structure.pdf](https://github.com/AbdulMalikDev/PythonCheatSheet/files/9033162/Python_Cheat_Sheet_Made_by_Abdul_Malik.pdf)
-    
-
-[The Modulo Operation (%) With Negative Numbers in Python](https://betterprogramming.pub/modulo-operation-with-negative-numbers-in-python-38cb7256bb32)
