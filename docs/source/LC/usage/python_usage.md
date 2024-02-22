@@ -10,13 +10,25 @@
     ![Untitled](https://user-images.githubusercontent.com/59110866/173563442-1a6fa3d2-b569-4eb0-99cc-9b91cc8be1eb.png)
 
 - Operators and it’s precedence
-    
-    ![Untitled](https://user-images.githubusercontent.com/47276307/172329850-61fc0809-a4b0-416c-848b-1c502ecb4772.jpg)
-    
 
+| Operators                   | Description                                 |
+|-----------------------------|---------------------------------------------|
+| ()                          | Parentheses                                 |
+| **                          | Exponentiation                              |
+| +x  -x  ~x                  | Unary plus, unary minus, and bitwise NOT    |
+| *  /  //  %                 | Multiplication, division, floor division, and modulus |
+| +  -                        | Addition and subtraction                   |
+| <<  >>                      | Bitwise left and right shifts               |
+| &                           | Bitwise AND                                 |
+| ^                           | Bitwise XOR                                 |
+| \|                          | Bitwise OR                                  |
+| ==  !=  >  >=  <  <=  is  is not  in  not in | Comparisons, identity, and membership operators |
+| not                         | Logical NOT                                 |
+| and                         | Logical AND                                 |
+| or                          | Logical OR                                  |
+
+    
 # Data Structures
-
-*Important data structures for LeetCode*
 
 ## Lists
 
@@ -32,7 +44,7 @@ nums = [1,2,3]
 
 nums.index(1) # returns index
 nums.append(1) # appends 1
-nums.insert(0,10) # inserts 10 at 0th index
+nums.insert(0, 10) # inserts 10 at 0th index
 nums.remove(3) # removes all instances of 3
 nums.copy(1) # returns copy of the list
 nums.count(1) # returns no.of times '1' is present in the list
@@ -40,26 +52,21 @@ nums.extend(someOtherList) # ...
 nums.pop() # pops last element [which element to pop can also be given as optional argument]
 nums.reverse() # reverses original list (nums in this case)
 nums.sort() # sorts list [does NOT return sorted list]
-#Python's default sort uses Tim Sort, which is a combination of both merge sort and insertion sort.
+# Python's default sort uses Tim Sort, which is a combination of both merge sort and insertion sort.
 ```
 
 List or String slicing in Python
 
-- Resource
-    
-    [Understanding slice notation](https://stackoverflow.com/questions/509211/understanding-slice-notation)
-    
 
 ```python
-It's pretty simple really:
-
+# 包含 start 但不包含 stop
 a[start:stop]  # items start through stop-1
 a[start:]      # items start through the rest of the array
 a[:stop]       # items from the beginning through stop-1
 a[:]           # a copy of the whole array
-There is also the step value, which can be used with any of the above:
+# There is also the step value, which can be used with any of the above:
 
-a[start:stop:step] # start through not past stop, by step
+a[start:stop:step] # Start through not past stop, by step
 The key point to remember is that the :stop value represents the first value
 that is not in the selected slice. So, the difference between stop and start is
 the number of elements selected (if step is 1, the default).
@@ -103,10 +110,6 @@ of slice() objects simplifies the programmatic generation of slicing.
 
 > Dictionaries are used to store data values in key:value pairs. *Info about **collections.Counter()** available below.*
 > 
-- *Operations Time Complexities*
-    
-    ![Untitled](https://user-images.githubusercontent.com/47276307/172330107-e68e3228-1c76-4bfb-bb38-04d18f94d5b9.jpg)
-    
 
 ```python
 dict = {'a':1,'b':2,'c':3}
