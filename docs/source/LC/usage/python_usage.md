@@ -78,10 +78,12 @@ a[-3::-1]  # everything except the last two items, reversed
 
 ## Dictionary
 
-Dictionaries are used to store data values in key:value pairs. 
+Dictionaries are used to store data values in key:value pairs.
+Note: Lists cannot be used as key, whereas tuple can be used as key. [Reference](https://blog.hubspot.com/website/variables-python#:~:text=Unlike%20other%20programming%20languages%3B%20Python,assign%20a%20value%20to%20them.)
 
 ```python
 dict = {'a':1,'b':2,'c':3}
+dict = dict()
 
 dict.keys() # returns list of keys of dictionary
 dict.values() # returns list of values of dictionary
@@ -104,9 +106,6 @@ dict.update({KEY:VALUE})
 ## Counter
 
 Python Counter is a container that will hold the count of each of the elements present in the container. The counter is a sub-class available inside the dictionary class. Specifically used for element frequencies.
-
-
-*Pretty similar to dictionary, in fact I use* **defaultdict(int)** *most of the time* 
 
 ```python
 from collections import Counter #(capital 'C')
@@ -188,27 +187,16 @@ heapq.nsmallest(k, iterable, key = fun)
 A set is a collection which is unordered, immutable, unindexed, No Duplicates.
 
 ```python
+set = set()
 set = {1,2,3}
 
 set.add(item)
 set.remove(item)
-set.discard(item) | set.remove(item)
-# removes item | remove will throw error if item is not there, discard will not
+set.discard(item) 
+set.remove(item)
+
+# Remove will throw error if item is not there, discard will not
 set.pop() # removes random item (since unordered)
-
-set.isdisjoint(anotherSet) # returns true if no common elements
-set.issubset(anotherSet) # returns true if all elements from anotherSet is present in original set
-set.issuperset(anotherSet) # returns true if all elements from original set is present in anotherSet
-
-set.difference(anotherSet) # returns set containing items ONLY in first set
-set.difference_update(anotherSet) # removes common elements from first set [no new set is created or returned]
-set.intersection(anotherSet) # returns new set with common elements
-set.intersection_update(anotherSet) # modifies first set keeping only common elements
-set.symmetric_difference(anotherSet) # returns set containing all non-common elements of both sets
-set.symmetric_difference_update(anotherSet) # same as symmetric_difference but changes are made on original set
-
-set.union(anotherSet) # ...
-set.update(anotherSet) # adds anotherSet without duplicate
 ```
 
 ## Tuples
