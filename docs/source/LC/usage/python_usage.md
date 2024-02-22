@@ -1,6 +1,6 @@
 # Python Cheat Sheet
 
-> [Click here for similar Java Resource (not made by me)](https://drive.google.com/file/d/1ao4ZA28zzBttDkuS6MLQI52gDs_CJZEm/view) <br>
+[Click here for similar Java Resource (not made by me)](https://drive.google.com/file/d/1ao4ZA28zzBttDkuS6MLQI52gDs_CJZEm/view) <br>
 
 
 # Basics
@@ -32,8 +32,8 @@
 
 ## Lists
 
-> Lists are used to store multiple items in a single variable
-> 
+Lists are used to store multiple items in a single variable
+
 - *Operations Time Complexities*
     
     ![Untitled](https://user-images.githubusercontent.com/47276307/172330098-1c5f0a6e-7f80-4f4f-9be6-1d734e2c70cd.jpg)
@@ -55,69 +55,39 @@ nums.sort() # sorts list [does NOT return sorted list]
 # Python's default sort uses Tim Sort, which is a combination of both merge sort and insertion sort.
 ```
 
-List or String slicing in Python
-
-
+List slicing in Python
 ```python
 # 包含 start 但不包含 stop
 a[start:stop]  # items start through stop-1
 a[start:]      # items start through the rest of the array
 a[:stop]       # items from the beginning through stop-1
 a[:]           # a copy of the whole array
+
 # There is also the step value, which can be used with any of the above:
-
 a[start:stop:step] # Start through not past stop, by step
-The key point to remember is that the :stop value represents the first value
-that is not in the selected slice. So, the difference between stop and start is
-the number of elements selected (if step is 1, the default).
-
-The other feature is that start or stop may be a negative number, which means
-it counts from the end of the array instead of the beginning. So:
 
 a[-1]    # last item in the array
 a[-2:]   # last two items in the array
 a[:-2]   # everything except the last two items
-Similarly, step may be a negative number:
-
+# The step value may be negative as well
 a[::-1]    # all items in the array, reversed
 a[1::-1]   # the first two items, reversed
 a[:-3:-1]  # the last two items, reversed
 a[-3::-1]  # everything except the last two items, reversed
-Python is kind to the programmer if there are fewer items than you ask for. For
-example, if you ask for a[:-2] and a only contains one element, you get an
-empty list instead of an error. Sometimes you would prefer the error, so you
-have to be aware that this may happen.
-
-Relation to slice() object
-The slicing operator [] is actually being used in the above code with a slice()
-object using the : notation (which is only valid within []), i.e.:
-
-a[start:stop:step]
-is equivalent to:
-
-a[slice(start, stop, step)]
-Slice objects also behave slightly differently depending on the number of
-arguments, similarly to range(), i.e. both slice(stop) and slice(start, stop[,
-step]) are supported. To skip specifying a given argument, one might use None,
-so that e.g. a[start:] is equivalent to a[slice(start, None)] or a[::-1] is
-equivalent to a[slice(None, None, -1)].
-
-While the :-based notation is very helpful for simple slicing, the explicit use
-of slice() objects simplifies the programmatic generation of slicing.
 ```
 
 ## Dictionary
 
-> Dictionaries are used to store data values in key:value pairs. *Info about **collections.Counter()** available below.*
-> 
+Dictionaries are used to store data values in key:value pairs. 
 
 ```python
 dict = {'a':1,'b':2,'c':3}
 
 dict.keys() # returns list of keys of dictionary
 dict.values() # returns list of values of dictionary
-dict.get('a') # returns value for any corresponding key
 dict.items() # returns [('a',1),('b',2),('c',3)]
+
+dict.get('a') # returns value for any corresponding key
 dict.copy() # returns copy of the dictionary
 # NOTE : items() Returns view object that will be updated with any future
 # changes to dict
@@ -129,20 +99,12 @@ dict.setDefault(KEY,DEFAULT_VALUE)
 # If the key does not exist, DEFAULT_VALUE becomes the key's value. 2nd
 # argument's default is None.
 dict.update({KEY:VALUE})
-# inserts pair in dictionary if not present, if present, corresponding value is
-# overriden (not key)
-# defaultdict ensures that if any element is accessed that is not present in
-# the dictionary
-# it will be created and error will not be thrown (which happens in normal dictionary)
-# Also, the new element created will be of argument type, for example in the below line
-# an element of type 'list' will be made for a Key that does not exist
-myDictionary = defaultdict(list) 
 ```
 
 ## Counter
 
-> Python Counter is a container that will hold the count of each of the elements present in the container. The counter is a sub-class available inside the dictionary class. Specifically used for element frequencies
-> 
+Python Counter is a container that will hold the count of each of the elements present in the container. The counter is a sub-class available inside the dictionary class. Specifically used for element frequencies.
+
 
 *Pretty similar to dictionary, in fact I use* **defaultdict(int)** *most of the time* 
 
@@ -158,30 +120,24 @@ Counter("Welcome to Guru99 Tutorials!") # => Counter({'o': 3, ' ': 3, 'u': 3, 'e
 
 # Updating
 counterObject = collections.Counter(list1)
-counterObject.keys() = [ 'x' , 'y' , 'z' ]
 most_common_element = counterObject.most_common(1) # [('x', 4)]
 counterObject.update("some string") # => Counter({'o': 3, 'u': 3, 'e': 2, 's': 2})
 counterObject['s'] += 1 # Increase/Decrease frequency
 
 # Accessing
 frequency_of_s = counterObject['s']
+counterObject.keys() # [ 'x' , 'y' , 'z' ]
+counterObject.items()
+counterObject.values()
 
 # Deleting
 del couterObject['s']
-
 ```
 
 ## Deque
-
-> A double-ended queue, or deque, has the feature of adding and removing elements from either end.
-> 
-- *Operations Time Complexities*
-    
-    ![Untitled](https://user-images.githubusercontent.com/47276307/172330115-78500420-3276-4e45-8ce3-fd668b7eb14e.jpg)
-    
+A double-ended queue, or deque, has the feature of adding and removing elements from either end.
 
 ```python
-
 #in BFS(Breadth-first search) or other algorithms where we have to pop or add elements to the begining , deque is the best option 
 #we can also use list, but list.pop(0) is O(n) operation where as dequeu.popleft() is O(1)
 
@@ -195,22 +151,16 @@ queue.pop() # Pop from right
 queue.appendleft("fromLeft") # Append from left
 queue.popleft() # Pop from left
 
-queue.index(element,begin_index,end_index) # Returns first index of element b/w the 2 indices.
-queue.insert(index,element)
+queue.index(element, begin_index, end_index) # Returns first index of element b/w the 2 indices.
+queue.insert(index, element)
 queue.remove() # removes first occurrance
-queue.count() # obvious
-
+queue.count()
 queue.reverse() # reverses order of queue elements
 ```
 
 ## Heapq
 
-> As we know the Heap Data Structure is used to implement the Priority Queue ADT. In python we can directly access a Priority Queue implemented using a Heap by using the **Heapq** library/module.
-> 
-- *Operations Time Complexities*
-    
-    ![Untitled](https://user-images.githubusercontent.com/47276307/172330122-29cf0756-89bc-4654-a4e8-4e318156c7d1.jpg)
-    
+As we know the Heap Data Structure is used to implement the Priority Queue ADT. In python we can directly access a Priority Queue implemented using a Heap by using the **Heapq** library/module.
 
 ```python
 import heapq # (minHeap by Default)
@@ -218,15 +168,10 @@ import heapq # (minHeap by Default)
 nums = [5, 7, 9, 1, 3]
 
 heapq.heapify(nums) # converts list into heap. Can be converted back to list by list(nums).
-heapq.heappush(nums,element) # Push an element into the heap
+heapq.heappush(nums, element) # Push an element into the heap
 heapq.heappop(nums) # Pop an element from the heap
-# heappush(heap, ele) :- This function is used to insert the element mentioned
-# in its arguments into heap. The order is adjusted, so as heap structure is
-# maintained.
-# heappop(heap) :- This function is used to remove and return the smallest
-# element from heap. The order is adjusted, so as heap structure is maintained.
 
-# Other Methods Available in the Library
+
 # Used to return the k largest elements from the iterable specified 
 # The key is a function with that accepts single element from iterable,
 # and the returned value from that function is then used to rank that element in the heap
@@ -234,49 +179,13 @@ heapq.nlargest(k, iterable, key = fun)
 heapq.nsmallest(k, iterable, key = fun)
 
 
-#Max heap in python 
-
-#By default heapq in python is min heap, 
-#if we want to use max heap we can simply invert the value of the keys and use heapq. 
-#For example, turn 1000.0 into -1000.0 and 5.0 into -5.0.
-
-#The easiest and ideal solution
-#Multiply the values by -1
-
-#All the highest numbers are now the lowest and vice versa.
-
-#Just remember that when you pop an element to multiply it with -1 in order to get the original value again.
-
-#Example: 
-
-import heapq
-heap = []
-heapq.heappush(heap, 1*(-1))
-heapq.heappush(heap, 10*(-1))
-heapq.heappush(heap, 20*(-1))
-print(heap)
-
-The output will look like:
-
-[-20, -1, -10]
-
-#when popping element multiply it with -1
-
-max_element = -heapq.heappop(heap)
-print(max_element)
-
-Output will be:
-20
+# By default heapq in python is min heap, 
+# If we want to use max heap we can simply invert the value
 ```
 
 ## Sets
 
-> A set is a collection which is unordered, immutable, unindexed, No Duplicates.
-> 
-- *Operations Time Complexities*
-    
-    ![Untitled](https://user-images.githubusercontent.com/47276307/172330132-7a785f5f-bbc6-43b9-b82f-794190813787.jpg)
-    
+A set is a collection which is unordered, immutable, unindexed, No Duplicates.
 
 ```python
 set = {1,2,3}
@@ -300,28 +209,21 @@ set.symmetric_difference_update(anotherSet) # same as symmetric_difference but c
 
 set.union(anotherSet) # ...
 set.update(anotherSet) # adds anotherSet without duplicate
-
 ```
 
 ## Tuples
 
-> A [tuple](https://www.scaler.com/topics/python/tuples-in-python/) is a collection which is ordered, unchangeable and can contain duplicate values
-> 
-- *Operations Time Complexities*
-    
-    Similar to list
+A [tuple](https://www.scaler.com/topics/python/tuples-in-python/) is a collection which is ordered, **unchangeable** and can contain duplicate values
     
 
 ```python
-tuple = (1,2,3,1)
+tuple = (1, 2, 3, 1)
 
 tuple.count(1) # returns occurence of an item
 tuple.index(1) # returns index of 1 in array
 ```
 
 ## Strings
-
-[Python String isnumeric()](https://www.programiz.com/python-programming/methods/string/isnumeric)
 
 ```python
 # ** split Function **
