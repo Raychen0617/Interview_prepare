@@ -657,6 +657,12 @@ public:
     }
 };
 ```
+### Virtual
+* Each object (belonging to a class with at least one virtual function) has a vptr (virtual pointer).
+* The vptr points to the v-table (virtual function table) of the actual class.
+* The v-table contains pointers to the actual overridden functions for that class.
+* When a virtual function is called, the vptr is used to locate the v-table and resolve the correct function address.
+* This dynamic binding ensures that the right function is called at runtime.
 
 ### Derive & Override
 

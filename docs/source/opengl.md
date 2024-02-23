@@ -1,4 +1,41 @@
 # OPENGL
+## Hardware
+### GPU :
+
+NVIDIA's GPU architectures:
+
+**Fermi**:
+- Introduced in 2010.
+- Supported CUDA computing.
+- Used in gaming and professional tasks.
+- Featured double-precision floating-point arithmetic and ECC memory.
+
+**Turing**:
+- Introduced in 2018.
+- Introduced real-time ray tracing with RT cores.
+- Included Tensor cores for AI tasks.
+- Enhanced gaming and professional graphics performance.
+
+**Ampere**:
+- Introduced in 2020.
+- Improved ray tracing with second-gen RT cores.
+- Enhanced AI performance with third-gen Tensor cores.
+- Used in gaming, professional graphics, and data center AI workloads.
+
+1. **Architecture**: GPUs are highly parallel processors consisting of many cores optimized for handling multiple tasks simultaneously. They are designed primarily for rendering graphics and performing parallel computations.
+2. **Parallelism**: GPUs excel at parallel processing, making them well-suited for tasks that can be broken down into many smaller computations that can be executed concurrently.
+3. **Graphics Rendering**: GPUs were initially developed for rendering graphics in video games and graphical applications. However, their high parallelism also makes them suitable for other compute-intensive tasks such as scientific simulations, machine learning, and data processing.
+4. **Memory Hierarchy**: GPUs typically have a high-speed memory hierarchy consisting of multiple levels of cache memory and high-bandwidth memory (e.g., GDDR6), optimized to handle large volumes of data quickly.
+5. **Programming Model**: Programming GPUs traditionally required specialized APIs such as OpenGL or DirectX for graphics rendering or CUDA and OpenCL for general-purpose computing. However, newer frameworks like NVIDIA's CUDA and AMD's ROCm provide more accessible programming models for general-purpose GPU computing.
+
+### DSP:
+
+1. **Architecture**: DSPs are specialized microprocessors designed for efficiently processing digital signals such as audio, video, and other real-time data streams.
+2. **Signal Processing**: DSPs are optimized for tasks such as filtering, modulation, demodulation, and other signal processing operations commonly found in communication systems, audio processing, image processing, and sensor data processing.
+3. **Low Power Consumption**: DSPs are typically designed to operate efficiently on low-power devices such as mobile phones, IoT devices, and embedded systems, making them suitable for applications requiring real-time processing in constrained environments.
+4. **Fixed-Point Arithmetic**: DSPs often use fixed-point arithmetic rather than floating-point arithmetic to optimize performance and reduce power consumption in signal processing tasks.
+5. **Programming Model**: Programming DSPs usually involves using specialized development tools and libraries tailored for signal processing tasks, often with languages like C or assembly language optimized for the specific DSP architecture.
+
 
 ## Basics
 
