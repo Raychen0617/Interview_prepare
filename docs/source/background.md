@@ -97,3 +97,9 @@ Rotation issue
 * Add noise while training. (ex: Input coordinate perturbation, point sampling)
 * Utilize image features (embedded by CNN networks).
 * Model pretrained on similar categories.
+
+
+## Coach AI
+[Youtube](https://www.youtube.com/watch?v=Se1nLA_JbMY)<br>
+
+**Model Selection:** Random forests are versatile and robust classifiers that can handle complex relationships between features and labels. They are less prone to overfitting and can handle high-dimensional data well, which is common in pose prediction tasks with many key points. Additionally, random forests can provide feature importances, which can help understand which key points are most informative for predicting specific poses.
