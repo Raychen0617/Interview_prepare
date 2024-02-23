@@ -1,14 +1,18 @@
 # OPENGL
 ## Hardware
 ### GPU :
+1. **Architecture**: GPUs are highly parallel processors consisting of many cores optimized for handling multiple tasks simultaneously. They are designed primarily for rendering graphics and performing parallel computations.
+2. **Parallelism**: GPUs excel at parallel processing, making them well-suited for tasks that can be broken down into many smaller computations that can be executed concurrently.
+3. **Graphics Rendering**: GPUs were initially developed for rendering graphics in video games and graphical applications. However, their high parallelism also makes them suitable for other compute-intensive tasks such as scientific simulations, machine learning, and data processing.
+4. **Memory Hierarchy**: GPUs typically have a high-speed memory hierarchy consisting of multiple levels of cache memory and high-bandwidth memory (e.g., GDDR6), optimized to handle large volumes of data quickly.
+5. **Programming Model**: Programming GPUs traditionally required specialized APIs such as OpenGL or DirectX for graphics rendering or CUDA and OpenCL for general-purpose computing. However, newer frameworks like NVIDIA's CUDA and AMD's ROCm provide more accessible programming models for general-purpose GPU computing.
 
-NVIDIA's GPU architectures:
+#### NVIDIA's GPU architectures:
 
 **Fermi**:
 - Introduced in 2010.
 - Supported CUDA computing.
 - Used in gaming and professional tasks.
-- Featured double-precision floating-point arithmetic and ECC memory.
 
 **Turing**:
 - Introduced in 2018.
@@ -22,11 +26,15 @@ NVIDIA's GPU architectures:
 - Enhanced AI performance with third-gen Tensor cores.
 - Used in gaming, professional graphics, and data center AI workloads.
 
-1. **Architecture**: GPUs are highly parallel processors consisting of many cores optimized for handling multiple tasks simultaneously. They are designed primarily for rendering graphics and performing parallel computations.
-2. **Parallelism**: GPUs excel at parallel processing, making them well-suited for tasks that can be broken down into many smaller computations that can be executed concurrently.
-3. **Graphics Rendering**: GPUs were initially developed for rendering graphics in video games and graphical applications. However, their high parallelism also makes them suitable for other compute-intensive tasks such as scientific simulations, machine learning, and data processing.
-4. **Memory Hierarchy**: GPUs typically have a high-speed memory hierarchy consisting of multiple levels of cache memory and high-bandwidth memory (e.g., GDDR6), optimized to handle large volumes of data quickly.
-5. **Programming Model**: Programming GPUs traditionally required specialized APIs such as OpenGL or DirectX for graphics rendering or CUDA and OpenCL for general-purpose computing. However, newer frameworks like NVIDIA's CUDA and AMD's ROCm provide more accessible programming models for general-purpose GPU computing.
+### Tensor Core
+* Tensor operations involve larger matrices and are more computationally intensive. (traditional ones are optimize for vector calculations)
+* Accelerate tasks like convolution, matrix multiplication, and element-wise operations commonly found in deep learning algorithms.
+* Support mixed-precision arithmetic, allowing them to perform computations using reduced precision (e.g., FP16) without sacrificing accuracy
+
+### RT Core (Ray tracing hardware)
+Performs:
+1. ray-bounding volume hierachy travesal
+2. ray-triangle intersection
 
 ### DSP:
 
@@ -579,11 +587,6 @@ Trace multiple samples in a single fragment (Also anti-aliasing).
 | Inefficiencies      | Shade many tris per pixel (overdraw) | Test many intersections per ray |
 | Acceleration structure | (Hierarchical) Z-buffering | Bounding volume hierarchies |
 | Drawbacks           | Incoherent queries difficult to make | Traverses memory incoherently |
-
-### RT Core (Ray tracing hardware)
-Performs:
-1. ray-bounding volume hierachy travesal
-2. ray-triangle intersection
 
 ### Deffered Shading and Forward Shading
 Forward Rendering processes each object in the scene individually, handling the lighting for each as it goes. It's a straightforward approach, yet it can become computationally heavy when dealing with complex scenes.
