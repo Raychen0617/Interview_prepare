@@ -14,7 +14,7 @@ Signed: Allows both negative and positive numbers. The first bit represents the 
 Unsigned: Only allows non-negative numbers. The entire bit range represents the magnitude of the number.
 
 #### Range
-Signed: $-2^{(n-1)} \text{ to } 2^{(n-1)} - 1 = 10000000 \text{ to } 0111111111$
+Signed: $-2^{(n-1)} \text{ to } 2^{(n-1)} - 1 = 10000000 \text{ to } 0111111111$ <br>
 Unsigned: $0 \text{ to } 2^n - 1$
 
 ### Overflow 
@@ -112,7 +112,14 @@ bool IsBigEndian()
         return false ;
 }
 ```
-
+Quiz: How to check if a number is power of 2
+```cpp
+int main(void){
+	if (n == 0) return false;
+	if( (n & (n-1)) == 0) return true;
+	else return false;
+}
+```
 ## Practice & Leetcode
 There is an unsigned integer n, and we want to swap the value in position 0 with 1, position 2 with 3, and so on and so forth. 
 
