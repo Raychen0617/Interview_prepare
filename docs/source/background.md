@@ -86,7 +86,7 @@ Rotation issue
 ## Neural Radiance Field
 ### Method
 * **To represents a scene using a fully-connected (non-convolutional) deep network.**
-* Input is a single continuous 5D coordinate (spatial location (x, y, z) and camera viewing direction (θ, φ)) 
+* Input is a single continuous 5D coordinate (spatial location (x, y, z) and camera viewing direction (θ, φ)) [theta_and_pi](https://www.cs.cmu.edu/~barbic/camera.html).
 * Output is the volume density and view-dependent emitted radiance at that spatial location (r, g, b).
 * Querying 5D coordinates along camera rays and use classic volume rendering techniques to project the output colors and densities into an image.
 * Volume density is unrelated to view angles and only rely on coordinates. Therefore, do two passes in the neural network. The first pass recieve coordinates as input and output volume density and an intermediate value for rgb. Then, the second pass recieve the intermediate value and viewing direction to produce final rgb. 

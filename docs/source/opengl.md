@@ -734,6 +734,11 @@ GL_MAX: takes the component-wise maximum of both colors: C¯result=max(Dst,Src)
 ```
 ![Untitled](./images/opengl_images/Untitled12.png)
 
+### Double buffer
+Double buffering allows you to draw an entire frame to a separate buffer, called the back buffer, before it is displayed. This is a separate buffer from the buffer that is being read from to display the image on screen, which is called the front buffer.
+
+When one frame buffer is completed, its image is displayed onscreen while the other frame buffer is erased to begin rendering the next screen image. In this way, it can solve flickering issues in single buffer.
+
 ### Frame buffer
 
 Frame buffer = the combination of color, depth, stencil buffer is stored somewhere in GPU memory and is called a framebuffer
