@@ -341,10 +341,21 @@ glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 ![](./images/opengl_images/rendering_pipeline.png)
 
 **Fixed graphic pipeline:**
-* Vertex transformation: Each vertex data is transformed by the modelview matrix, and then by the perspective projection matrix.
-* Rasterization: Based on the index data (EBO) and the perspective-transformed vertices, the polygons are converted into pixels on the screen. The fixed pipeline performs per-vertex lighting before rasterization, and then interpolates the pixel colors using a hyperbolic interpolation algorithm.
-* Z-buffering and alpha blending: The depth and transparency of each pixel are tested and blended with the existing pixels on the screen.
-* Rendering: The final image is displayed on the screen.
+1. Drawcall Submission: The program issues a drawcall, which is received by the graphics driver. The driver performs some validation and encodes the command into a GPU-readable format within a pushbuffer.
+
+2. Command Processing: The buffered commands are sent to the GPU for processing. The Host Interface of the GPU picks up these commands and initiates processing through the Front End.
+
+3. Primitive Distribution: Triangles are generated from the vertex data in the index buffer. These triangles are distributed to multiple Graphics Processing Clusters (GPCs).
+
+4. Vertex Processing: Within each GPC, the vertices of triangles are fetched and scheduled for processing in Streaming Multiprocessors (SMs). Warps of 32 threads are scheduled to execute instructions in lock-step.
+
+5. Viewport Transform: Completed vertex shader results undergo viewport transformation and clipping, preparing the triangles for rasterization.
+
+6. Rasterization: Triangles are split into smaller fragments and distributed to Raster Engines. These engines generate pixel information for their respective sections, performing operations like back-face culling and Z-culling.
+
+7. Pixel Processing (Pixel Shader): Pixel threads are batched and processed in lock-step within SMs. Pixel shader computes color values for pixels, utilizing a 2x2 quad structure for efficiency.
+
+8. ROP Operations: The final pixel colors and depth values are processed by Render Output Units (ROPs). Depth-testing, alpha blending, and other operations are performed to generate the final image.
 
 
 ## Texture
