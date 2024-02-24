@@ -673,7 +673,3 @@ def compare(item1, item2):
     else:
         return 0
 ```
-    
-
-
-
