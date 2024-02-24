@@ -38,6 +38,28 @@
 - Slower iteration
 - Better for operations like insertion and deletion
 
+| Operation          | Examples           | Complexity class   |
+|--------------------|--------------------|--------------------|
+| Append             | l.append(item)     | O(1)               |
+| Clear              | l.clear()          | O(1)               |
+| Containment        | item in/not in l   | O(N)               |
+| Copy               | l.copy()           | O(N)               |
+| Delete             | del l[i]           | O(N)               |
+| Extend             | l.extend(...)      | O(N)               |
+| Equality           | l1==l2, l1!=l2     | O(N)               |
+| Index              | l[i]               | O(1)               |
+| Iteration          | for item in l:     | O(N)               |
+| Length             | len(l)             | O(1)               |
+| Multiply           | k*l                | O(k*N)             |
+| Min, Max           | min(l), max(l)     | O(N)               |
+| Pop from end       | l.pop(-1)          | O(1)               |
+| Pop intermediate   | l.pop(item)        | O(N)               |
+| Remove             | l.remove(...)      | O(N)               |
+| Reverse            | l.reverse()        | O(N)               |
+| Slice              | l[x:y]             | O(y-x)             |
+| Sort               | l.sort()           | O(N*log(N))        |
+| Store              | l[i]=item          | O(1)               |
+
 ```python
 nums = [1,2,3]
 
@@ -80,6 +102,21 @@ a[-3::-1]  # everything except the last two items, reversed
 Dictionaries are used to store data values in key:value pairs.
 Note: Lists cannot be used as key, whereas tuple can be used as key. [Reference](https://blog.hubspot.com/website/variables-python#:~:text=Unlike%20other%20programming%20languages%3B%20Python,assign%20a%20value%20to%20them.)
 
+| Operation         | Examples          | Complexity class  |
+|-------------------|-------------------|-------------------|
+| Clear             | d.clear()         | O(1)              | O(1)              |
+| Construction      | dict(...)         | O(len(d))         | O(len(d))         |
+| Delete            | del d[k]          | O(1)              | O(N)              |
+| Get               | d.get()           | O(1)              | O(N)              |
+| Iteration (key, value, item) | for item in d: | O(N)      | O(N)              |
+| Length            | len(d)            | O(1)              | O(1)              |
+| Pop               | d.pop(item)       | O(1)              | O(N)              |
+| Pop Item          | d.popitem()       | O(1)              | O(1)              |
+| Returning Views   | d.values()        | O(1)              | O(1)              |
+| Returning keys    | d.keys()          | O(1)              | O(1)              |
+| Fromkeys          | d.fromkeys(seq)   | O(len(seq))       | O(len(seq))       |
+
+
 ```python
 dict = {'a':1,'b':2,'c':3}
 dict = dict()
@@ -101,84 +138,27 @@ dict.setDefault(KEY,DEFAULT_VALUE)
 dict.update({KEY:VALUE})
 ```
 
-### Counter
-
-Python Counter is a container that will hold the count of each of the elements present in the container. The counter is a sub-class available inside the dictionary class. Specifically used for element frequencies.
-
-```python
-from collections import Counter #(capital 'C')
-# can also be used as 'collections.Counter()' in code
-
-list1 = ['x','y','z','x','x','x','y', 'z']
-
-# Initialization
-Counter(list1) # => Counter({'x': 4, 'y': 2, 'z': 2})
-Counter("Welcome to Guru99 Tutorials!") # => Counter({'o': 3, ' ': 3, 'u': 3, 'e': 2.....})
-
-# Updating
-counterObject = collections.Counter(list1)
-most_common_element = counterObject.most_common(1) # [('x', 4)]
-counterObject.update("some string") # => Counter({'o': 3, 'u': 3, 'e': 2, 's': 2})
-counterObject['s'] += 1 # Increase/Decrease frequency
-
-# Accessing
-frequency_of_s = counterObject['s']
-counterObject.keys() # [ 'x' , 'y' , 'z' ]
-counterObject.items()
-counterObject.values()
-
-# Deleting
-del couterObject['s']
-```
-
-### Deque
-A double-ended queue, or deque, has the feature of adding and removing elements from either end.
-
-```python
-#in BFS(Breadth-first search) or other algorithms where we have to pop or add elements to the begining , deque is the best option 
-#we can also use list, but list.pop(0) is O(n) operation where as dequeu.popleft() is O(1)
-
-from collections import deque
-
-queue = deque(['name','age','DOB'])
-
-queue.append("append_from_right") # Append from right
-queue.pop() # Pop from right
-
-queue.appendleft("fromLeft") # Append from left
-queue.popleft() # Pop from left
-
-queue.index(element, begin_index, end_index) # Returns first index of element b/w the 2 indices.
-queue.insert(index, element)
-queue.remove() # removes first occurrance
-queue.count()
-queue.reverse() # reverses order of queue elements
-```
-
-### Heapq
-
-As we know the Heap Data Structure is used to implement the Priority Queue ADT. In python we can directly access a Priority Queue implemented using a Heap by using the **Heapq** library/module.
-
-```python
-import heapq # (minHeap by Default)
-
-nums = [5, 7, 9, 1, 3]
-
-heapq.heapify(nums) # converts list into heap. Can be converted back to list by list(nums).
-heapq.heappush(nums, element) # Push an element into the heap
-heapq.heappop(nums) # Pop an element from the heap
-
-# Used to return the k largest elements from the iterable specified 
-# The key is a function with that accepts single element from iterable,
-# and the returned value from that function is then used to rank that element in the heap
-heapq.nlargest(k, iterable, key = fun)
-heapq.nsmallest(k, iterable, key = fun)
-
-# By default heapq in python is min heap
-# If we want to use max heap we can simply invert the value
-```
-
 ### Sets
+
+| Operation             | Examples                     | Complexity class               |
+|-----------------------|------------------------------|--------------------------------|
+| Add                   | s.add(item)                  | O(1)                           | O(N)                           |
+| Clear                 | s.clear()                    | O(1)                           | O(1)                           |
+| Copy                  | s.copy()                     | O(N)                           | O(N)                           |
+| Containment           | item in/not in s             | O(1)                           | O(N)                           |
+| Creation              | set(...)                     | O(len(s))                      | O(len(s))                      |
+| Discard               | s.discard(item)              | O(1)                           | O(N)                           |
+| Difference            | s1-s2                        | O(len(s1))                     | O(len(s1))                     |
+| Difference Update     | s1.difference_update(s2)     | O(len(s2))                     | –                              |
+| Equality              | s1==s2, s1!=s2               | O(min(len(s1), len(s2)))       | O(min(len(s1), len(s2)))       |
+| Intersection          | s1 & s2                      | O(min(len(s1), len(s2)))       | O(min(len(s1), len(s2)))       |
+| Iteration             | for item in s:               | O(N)                           | O(N)                           |
+| Is Subset             | s1<=s2                       | O(len(s1))                     | O(len(s1))                     |
+| Is Superset           | s1>=s2                       | O(len(s2))                     | O(len(s1))                     |
+| Pop                   | s.pop()                      | O(1)                           | O(N)                           |
+| Union                 | s1|s2                        | O(len(s1)+len(s2))             | –                              |
+| Symmetric Difference  | s1^s2                        | len(s1)                        | O(len(s1)*len(s2))             |
+
 
 A set is a collection which is unordered, immutable, unindexed, No Duplicates.
 
@@ -259,6 +239,85 @@ string.islower() # The islower() method returns True if all cased characters in 
 string.isdigit() 
 string.isupper() # The isupper() method returns True if all cased characters in the string are uppercase and there is at least one cased character, False otherwise.
 ```
+
+### Counter
+
+Python Counter is a container that will hold the count of each of the elements present in the container. The counter is a sub-class available inside the dictionary class. Specifically used for element frequencies.
+
+```python
+from collections import Counter #(capital 'C')
+# can also be used as 'collections.Counter()' in code
+
+list1 = ['x','y','z','x','x','x','y', 'z']
+
+# Initialization
+Counter(list1) # => Counter({'x': 4, 'y': 2, 'z': 2})
+Counter("Welcome to Guru99 Tutorials!") # => Counter({'o': 3, ' ': 3, 'u': 3, 'e': 2.....})
+
+# Updating
+counterObject = collections.Counter(list1)
+most_common_element = counterObject.most_common(1) # [('x', 4)]
+counterObject.update("some string") # => Counter({'o': 3, 'u': 3, 'e': 2, 's': 2})
+counterObject['s'] += 1 # Increase/Decrease frequency
+
+# Accessing
+frequency_of_s = counterObject['s']
+counterObject.keys() # [ 'x' , 'y' , 'z' ]
+counterObject.items()
+counterObject.values()
+
+# Deleting
+del couterObject['s']
+```
+
+### Deque
+A double-ended queue, or deque, has the feature of adding and removing elements from either end.
+
+```python
+#in BFS(Breadth-first search) or other algorithms where we have to pop or add elements to the begining , deque is the best option 
+#we can also use list, but list.pop(0) is O(n) operation where as dequeu.popleft() is O(1)
+
+from collections import deque
+
+queue = deque(['name','age','DOB'])
+
+queue.append("append_from_right") # Append from right
+queue.pop() # Pop from right
+
+queue.appendleft("fromLeft") # Append from left
+queue.popleft() # Pop from left
+
+queue.index(element, begin_index, end_index) # Returns first index of element b/w the 2 indices.
+queue.insert(index, element)
+queue.remove() # removes first occurrance
+queue.count()
+queue.reverse() # reverses order of queue elements
+```
+
+### Heapq
+
+As we know the Heap Data Structure is used to implement the Priority Queue ADT. In python we can directly access a Priority Queue implemented using a Heap by using the **Heapq** library/module.
+
+```python
+import heapq # (minHeap by Default)
+
+nums = [5, 7, 9, 1, 3]
+
+heapq.heapify(nums) # converts list into heap. Can be converted back to list by list(nums).
+heapq.heappush(nums, element) # Push an element into the heap
+heapq.heappop(nums) # Pop an element from the heap
+
+# Used to return the k largest elements from the iterable specified 
+# The key is a function with that accepts single element from iterable,
+# and the returned value from that function is then used to rank that element in the heap
+heapq.nlargest(k, iterable, key = fun)
+heapq.nsmallest(k, iterable, key = fun)
+
+# By default heapq in python is min heap
+# If we want to use max heap we can simply invert the value
+```
+
+
 ## OOP
 
 ### Class
