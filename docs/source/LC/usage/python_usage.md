@@ -312,6 +312,23 @@ To define a private member prefix the member name with double underscore “__�
 To define a protect member prefix the member name with single underscore “_”. (can only be access by itself and children class)
 **Note: Python’s private and protected members can be accessed outside the class through python name mangling.**
 <br>
+Name mangling: python process any identifier with two leading underscore and one trailing underscore is textually replaced with _classname__identifier where classname is the name of the current class.
+
+```python
+class Student: 
+	def __init__(self, name): 
+		self.__name = name 
+
+	def displayName(self): 
+		print(self.__name) 
+
+s1 = Student("Santhosh") 
+s1.displayName() 
+
+# Raises an error 
+print(s1.__name) 
+
+```
 
 ### Polymorphism
 ```python
@@ -453,6 +470,7 @@ def hello():
     print("Hello!")
 ```
 
+### map
 
 Functions to iterate over list / other iterable (tuple, dictionaries)
     
@@ -461,9 +479,11 @@ Functions to iterate over list / other iterable (tuple, dictionaries)
 ** map(fun, iter) **
 # fun : It is a function to which map passes each element of given iterable.
 # iter : It is a iterable which is to be mapped.
-
+```
+### zip
+```python
 ** zip(list,list) **
-for elem1,elem2 in zip(firstList,secondList):
+for elem1, elem2 in zip(firstList, secondList):
     # will merge both lists and produce tuples with both elements
     # Tuples will stop at shortest list (in case of both lists having different len)
 # Example
@@ -472,45 +492,47 @@ a = ("John", "Charles", "Mike")
 b = ("Jenny", "Christy", "Monica")
 
 x = zip(a, b)
-
-# use the tuple() function to display a readable version of the result:
-
 print(tuple(x))
+
 o/p: (('John', 'Jenny'), ('Charles', 'Christy'), ('Mike', 'Monica'))
 '''
-
-** any(list) ** [ OPPOSITE IS => ** all() ** ]
-any(someList) # returns true if ANY element in list is true [any string, all numbers except 0 also count as true]
-
+```
+### enumerate
+```python
 ** enumerate(list|tuple) ** 
 # [when you need to attach indexes to lists or tuples ]
 enumerate(anyList) # ['a','b','c'] => [(0, 'a'), (1, 'b'), (2, 'c')]
+```
 
+### filter
+```python
 ** filter(function|list) **
 filter(myFunction,list) # returns list with elements that returned true when passed in function
+```
 
-***************** import bisect ***********************
-
-** bisect.bisect(list,number,begin,end) ** O(log(n))
+### bisect
+```python
+** bisect.bisect(list,number, begin, end) ** O(log(n))
 # [ returns the index where the element should be inserted 
 #		such that sorting order is maintained ]
 a = [1,2,4]
 bisect.bisect(a,3,0,4) # [1,2,4] => 3 coz '3' should be inserted in 3rd index to maintain sorting order
 
-# Other variants of this functions are => bisect.bisect_left() | bisect.bisect_right()
-# they have same arguments. Suppose the element we want to insert is already present
+# Suppose the element we want to insert is already present
 # in the sorting list, the bisect_left() will return index left of the existing number
-# and the bisect_right() or bisect() will return index right to the existing number
+# bisect_right() or bisect() will return index right to the existing number
 
-# ** bisect.insort(list,number,begin,end)       ** O(n) to insert
-# ** bisect.insort_right(list,number,begin,end) ** 
-# ** bisect.insort_left(list,number,begin,end)  ** 
+bisect.insort(list,number,begin,end)       # O(n) to insert
+bisect.insort_right(list,number,begin,end)
+bisect.insort_left(list,number,begin,end)
 
+'''
 The above 3 functions are exact same of bisect.bisect(), the only difference
 is that they return the sorted list after inserting and not the index. The
 left() right() logic is also same as above.
+'''
 ```
-    
+### ord & chr 
 Getting ASCII value of a character
 ```python
 ** ord(str) **
@@ -520,7 +542,7 @@ Getting ASCII value of a character
 ```
     
 
-## Miscellaneous
+### Math
 Important Python Math Functions
     
 ```python
@@ -574,7 +596,7 @@ bin(anyNumber) # Returns binary version of number
 ** divmod(int,int) **
 divmod(dividend,divisor) # returns tuple like (quotient, remainder)
 ```
-    
+### Custom cmp 
 Python cmp_to_key function to sort list with custom compare function
 return a negative value (`< 0`) when the left item should be sorted *before* the right item
 return a positive value (`> 0`) when the left item should be sorted *after* the right item
