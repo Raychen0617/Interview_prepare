@@ -175,6 +175,7 @@ set.discard(item)
 ### Tuples
 
 A [tuple](https://www.scaler.com/topics/python/tuples-in-python/) is a collection which is ordered, **unchangeable** and can contain duplicate values
+Time complexity is similar to list
 
 - Immutable
 - Lower memory consumption
@@ -367,10 +368,9 @@ peggy.run()
 ```
 
 ### Encapsulate
-To define a private member prefix the member name with double underscore “__”. (can only be access by iteself)
-To define a protect member prefix the member name with single underscore “_”. (can only be access by itself and children class)
-**Note: Python’s private and protected members can be accessed outside the class through python name mangling.**
-<br>
+To define a private member prefix the member name with double underscore “__”. (can only be access by iteself)<br>
+To define a protect member prefix the member name with single underscore “_”. (can only be access by itself and children class)<br>
+**Note: Python’s private and protected members can be accessed outside the class through python name mangling.**<br>
 Name mangling: python process any identifier with two leading underscore and one trailing underscore is textually replaced with _classname__identifier where classname is the name of the current class.
 
 ```python
@@ -455,6 +455,7 @@ with open('file_path', 'w') as file:
 
 ### Generator
 A generator function in Python is defined like a normal function, but whenever it needs to generate a value, it does so with the yield keyword rather than return.
+**Yield** suspends a function’s execution and sends a value back to the caller, but retains enough state to enable the function to resume where it left off. 
 ```python
 # A generator function that yields 1 for first time, 
 # 2 second time and 3 third time 
@@ -467,6 +468,46 @@ def simpleGeneratorFun():
 for value in simpleGeneratorFun(): 
 	print(value)
 ```
+
+### Closure
+Closure is a nested function that allows us to access variables of the outer function even after the outer function is closed.
+```python
+def count():                # 建立一個 count 函式
+    a = []                    # 函式內有區域變數 a 是串列
+    def avg(val):             # 建立內置函式 avg ( 閉包 )
+        a.append(val)           # 將參數數值加入變數 a
+        print(a)                # 印出 a
+        return sum(a)/len(a)    # 回傳 a 串列所有數值的平均
+    return avg                # 回傳 avg
+
+test = count()
+test(10)      # 將 10 存入 a
+test(11)      # 將 11 存入 a
+test(12)      # 印出 11
+
+'''
+[10]
+[10, 11]
+[10, 11, 12]
+'''
+```
+不過如果將上方的例子，改成變數的做法，可能就會發生錯誤，因為在 cal 函式裡的變數 a 後方使用了「等號」，意義等同於變數的「賦值」，換句話說是新建了一個區域變數 a，就造成了名稱空間裡名稱重疊的問題。
+如果必須這麼做，可以使用 nonlocal 的方式，宣告這個變數是「自由變數」( 不是這個區域裡的變數 )，就能正常使用這個變數。
+```python
+def count():
+    a = 1
+    def cal(val):
+        nonlocal a
+        a = a + val
+        return a
+    return cal
+
+test = count()
+test(10)
+test(11)
+test(12)    # 34 ( 1 + 10 + 11 + 12 )
+```
+
 ### Decorator
 有一天老闆突然讓你統計每個程式都運行了多長時間並比較下運行效率，此時如果你去手動修改每個程序的代碼一定會讓你抓狂。[Reference](https://blog.csdn.net/weixin_42134789/article/details/84635252)
 
@@ -484,16 +525,7 @@ def func1():
     time.sleep(2)
     print("Func1 is running.")
 ```
-**A Closure in Python is a function object that remembers values in enclosing scopes even if they are not present in memory.**
-```python
-def outer(x):
-    a = x
-    def inner(y):
-        b = y
-        print(a+b)
-    return inner
-f1 = outer(1) # 返回inner函数对象+局部变量1(闭包)
-```
+
 General decorator
 ```python
 def hint(func):
