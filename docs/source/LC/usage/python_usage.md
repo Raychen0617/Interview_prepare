@@ -562,14 +562,17 @@ def hello():
 ```
 
 ### map
-
-Functions to iterate over list / other iterable (tuple, dictionaries)
+map function returns a map object(which is an iterator) of the results after applying the given function to each item of a given iterable (list, tuple etc.)
     
 ```python
+def a(x):
+    return x+1
 
-** map(fun, iter) **
-# fun : It is a function to which map passes each element of given iterable.
-# iter : It is a iterable which is to be mapped.
+b = map(a, [1,2,3,4,5])
+c = map(lambda x: x+1, [1,2,3,4,5])
+
+print(list(b))    # [2, 3, 4, 5, 6]
+print(tuple(c))   # (2, 3, 4, 5, 6)
 ```
 ### zip
 ```python
@@ -596,9 +599,15 @@ enumerate(anyList) # ['a','b','c'] => [(0, 'a'), (1, 'b'), (2, 'c')]
 ```
 
 ### filter
+The filter() method filters the given sequence with the help of a function that tests each element in the sequence to be true or not.
 ```python
-** filter(function|list) **
-filter(myFunction,list) # returns list with elements that returned true when passed in function
+def a(x):
+  return x>2
+b = filter(a, [1,2,3,4,5])
+c = filter(lambda x: x>2, [1,2,3,4,5])
+
+print(list(b))    # [3, 4, 5]
+print(tuple(c))   # (3, 4, 5)
 ```
 
 ### bisect
@@ -705,3 +714,7 @@ def compare(item1, item2):
     else:
         return 0
 ```
+
+
+## Reference
+[steam python education](https://steam.oxxostudio.tw/category/python/library/re.html)
