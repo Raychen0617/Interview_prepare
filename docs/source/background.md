@@ -1,12 +1,16 @@
 # Background
 
 ## MobileDrive
+### Yolov5
+Backbone: Use to extract feature map with different resolutions
+Head: Input feature map and predict the boundary region and confidence
+
 ### Model optimization pipeline
 1. Perform NAS and Pruning on YOLOv5’s backbone architecture
 2. Map optimized backbone architecture back to YOLOv5
 3. Apply KD and Quantization on the whole network
-
 ![](./images/resume/optimization_pipeline.png)
+
 ### NAS
 Goal: Automatically search a network architecture that leads to the best performance
 
@@ -28,6 +32,26 @@ Pros: Much faster
 Goal: Aim to remove less important channels while minimizing the accuracy loss  
 Ranking algorithm: To rank the importance of every channel 
 ![](./images/resume/channel_pruning.png)
+
+```python
+# Get the weights of a specific convolutional layer
+conv_weights = model.layers[1].get_weights()[0]
+
+# Calculate the L2 norm of each filter
+filter_l2_norms = np.linalg.norm(conv_weights, axis=(0, 1, 2))
+
+# Determine a threshold to prune the least important filters
+threshold = np.percentile(filter_l2_norms, 10)  # Prune the bottom 10%
+
+# Create a mask to determine which filters to keep
+filters_to_keep = filter_l2_norms > threshold
+
+# Prune the filters and their corresponding feature maps
+pruned_weights = conv_weights[:, :, :, filters_to_keep]
+
+# Replace the original weights with the pruned weights
+model.layers[1].set_weights([pruned_weights]) 
+```
 
 ### KD
 Teacher (large, accurate model) 
